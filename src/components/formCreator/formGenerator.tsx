@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FormDataContexts } from '../forms/formDataContext';
 import { clusterProp, formBuilderProps, formProp, formProperties } from '../../interfaces/formGenerationInterfaces';
-import React from 'react';
 import { FieldWrapperType } from '../forms/formWrappers/fieldWrapper';
 
 export const startSchema = {

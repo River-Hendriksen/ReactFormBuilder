@@ -1,32 +1,44 @@
 {
   "name": "jsonformbuilder",
-  "version": "1.0.0",
-  "description": "Create a React Form via a json script",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "Create a React Form via a json script with yup validation",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "rollup": "rollup -c"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/River-Hendriksen/JsonFormBuilder.git"
   },
-  "author": "",
+  "author": "river Hendriksen 2023",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/River-Hendriksen/JsonFormBuilder/issues"
   },
   "homepage": "https://github.com/River-Hendriksen/JsonFormBuilder#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
     "@types/react": "^18.0.33",
     "react": "^18.2.0",
+    "rollup": "^3.20.2",
+    "rollup-plugin-dts": "^5.3.0",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.3"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
     "@types/react-flatpickr": "^3.8.8",
     "flatpickr": "^4.6.13",
     "react-flatpickr": "^3.10.13",
     "react-hook-form": "^7.43.9",
     "yup": "^1.0.2"
-  }
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts"
 }
