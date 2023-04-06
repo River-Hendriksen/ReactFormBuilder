@@ -1,0 +1,32 @@
+{
+  "name": "jsonformbuilder",
+  "version": "1.0.0",
+  "description": "Create a React Form via a json script",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/River-Hendriksen/JsonFormBuilder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/River-Hendriksen/JsonFormBuilder/issues"
+  },
+  "homepage": "https://github.com/River-Hendriksen/JsonFormBuilder#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "react": "^18.2.0",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.0.1",
+    "@types/react-flatpickr": "^3.8.8",
+    "flatpickr": "^4.6.13",
+    "react-flatpickr": "^3.10.13",
+    "react-hook-form": "^7.43.9",
+    "yup": "^1.0.2"
+  }
+}
