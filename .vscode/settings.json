@@ -1,0 +1,6 @@
+{
+    "appService.deploySubpath": ".",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "appService.zipIgnorePattern": [".vscode{,/**}", ".env{,/**}"]
+}
