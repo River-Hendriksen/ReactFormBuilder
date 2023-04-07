@@ -5,63 +5,21 @@ import {
   yupFormBuilderProps,
 } from "../../interfaces/yupSchemaInterfaces";
 
-// export const schema = {
-//   type: "object",
-//   properties: {
-//     numberRange: {
-//       type: "number",
-//       validations: [
-//         {
-//           type: "min",
-//           params: [0],
-//         },
-//         {
-//           type: "max",
-//           params: [10],
-//         },
-//         {
-//           type: "transform",
-//           params: ["(_, val) => (val ? Number(val) : null)"],
-//         },
-//       ],
-//     },
-//     name: {
-//       type: "number",
-//       validations: [
-//         {
-//           type: "when",
-//           params: [
-//             {
-//               comparatorVariable: "isBig",
-//               is: true,
-//               then: [
-//                 {
-//                   type: "min",
-//                   params: [5],
-//                 },
-//               ],
-//               otherwise: [
-//                 {
-//                   type: "min",
-//                   params: [0],
-//                 },
-//               ],
-//             },
-//           ],
-//         },
-//       ],
-//     },
-//     test: {
-//       type: "string",
-//       validations: ["required"],
-//     },
-//   },
-// };
+// YupArgCreator is a function that takes a validationRequirementProps object or a string and a yup validator and returns the validator with the correct arguments.
+// If validation is a string, return the validator with that string as a key
+// If validation is an object, destructure type and params
+// If the validator does not have the key in the type, return
+// If the type is when, and params exists, and the first param is an object, destructure the object
+// Create an object with the required when params
+// Add the then object to the whenParams object
+// If there is an otherwise param, add it to the whenParams object
+// Return the validator with the when key and the whenParams object
+// If type is not when, return the validator with the type key and the params array
 
-const yupArgCreator = (
+export function yupArgCreator(
   validation: validationRequirementProps | string,
   validator: any
-) => {
+) {
   // if validation is a string, return the validator with that string as a key
   if (typeof validation === "string") {
     return validator[validation as keyof typeof validator]();
@@ -99,7 +57,7 @@ const yupArgCreator = (
     // if type is not when, return the validator with the type key and the params array
     return validator[type as keyof typeof validator](...params);
   }
-};
+}
 
 //this function creates a yup schema from a form schema
 export const yupGeneration = (schema: yupFormBuilderProps) => {
