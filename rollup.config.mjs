@@ -12,11 +12,6 @@ export default [
     external: [...Object.keys(packageJson.peerDependencies || {})],
     output: [
       {
-        file: packageJson.main,
-        format: "cjs",
-        sourcemap: true,
-      },
-      {
         file: packageJson.module,
         format: "esm",
         sourcemap: true,
