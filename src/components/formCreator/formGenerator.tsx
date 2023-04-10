@@ -8,73 +8,73 @@ import {
 } from "../../interfaces/formGenerationInterfaces";
 import { FieldWrapperType } from "../forms/formWrappers/fieldWrapper";
 
-export const startSchema = {
-  type: "object",
-  properties: [
-    {
-      className: "grid grid-cols-2 gap-4",
-      children: [
-        {
-          className: "",
-          fields: {
-            alertGenerated: {
-              type: "dateTime",
-              label: "asdkjasdlk",
-            },
-            postalCode: {
-              type: "input",
-              label: "asdsad",
-            },
-          },
-        },
-        {
-          className: "",
-          fields: {
-            Bingo: {
-              type: "dateTime",
-              label: "asdkjasdlk",
-            },
-            Bango: {
-              type: "input",
-              label: "asdsad",
-            },
-          },
-        },
-      ],
-    },
-    {
-      className: "w-full justify-center flex",
-      children: [
-        {
-          className:
-            "card w-3/4 justify-center  shadow-[0_2px_8px_0px_rgba(5,34,97,0.1)]",
-          children: [
-            {
-              className: "card-body",
-              fields: {
-                endStageRenalDiseaseOnAdmission: {
-                  type: "checkbox",
-                  label: "asdkjasdlk",
-                },
-                interventionOutsideCarePlan: {
-                  type: "checkbox",
-                  label: "asdsad",
-                  children: {
-                    interventionOutsideCarePlanSpecification: {
-                      type: "input",
-                      label: "asdsad",
-                      wrapperClassname: "flex pr-8 py-5",
-                    },
-                  },
-                },
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
+// export const startSchema = {
+//   type: "object",
+//   properties: [
+//     {
+//       className: "grid grid-cols-2 gap-4",
+//       children: [
+//         {
+//           className: "",
+//           fields: {
+//             alertGenerated: {
+//               type: "dateTime",
+//               label: "asdkjasdlk",
+//             },
+//             postalCode: {
+//               type: "input",
+//               label: "asdsad",
+//             },
+//           },
+//         },
+//         {
+//           className: "",
+//           fields: {
+//             Bingo: {
+//               type: "dateTime",
+//               label: "asdkjasdlk",
+//             },
+//             Bango: {
+//               type: "input",
+//               label: "asdsad",
+//             },
+//           },
+//         },
+//       ],
+//     },
+//     {
+//       className: "w-full justify-center flex",
+//       children: [
+//         {
+//           className:
+//             "card w-3/4 justify-center  shadow-[0_2px_8px_0px_rgba(5,34,97,0.1)]",
+//           children: [
+//             {
+//               className: "card-body",
+//               fields: {
+//                 endStageRenalDiseaseOnAdmission: {
+//                   type: "checkbox",
+//                   label: "asdkjasdlk",
+//                 },
+//                 interventionOutsideCarePlan: {
+//                   type: "checkbox",
+//                   label: "asdsad",
+//                   children: {
+//                     interventionOutsideCarePlanSpecification: {
+//                       type: "input",
+//                       label: "asdsad",
+//                       wrapperClassname: "flex pr-8 py-5",
+//                     },
+//                   },
+//                 },
+//               },
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   ],
+// };
 
 export const FormBuilder = ({
   schema,
