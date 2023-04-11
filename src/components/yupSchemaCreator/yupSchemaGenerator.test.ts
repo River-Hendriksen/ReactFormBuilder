@@ -294,7 +294,7 @@ describe("yupGeneration creates a yup schema", () => {
     };
 
     const result = yupGeneration(schema);
-    console.log("restult", result.fields);
+
     expect(await result.isValid({ test: 1 })).toBe(true);
   });
 

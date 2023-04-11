@@ -177,11 +177,6 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
         );
       }
       case "dateTime": {
-        console.log(
-          "dateTime",
-          fieldIdentity
-          // formDataContexts?.formData[fieldIdentity]
-        );
         return (
           <FormDateTime
             registerLabel={fieldIdentity}

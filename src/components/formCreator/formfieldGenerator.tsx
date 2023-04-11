@@ -57,7 +57,6 @@ const RescursiveCluster = ({ children }: { children: clusterProp[] }) => {
   return (
     <>
       {children.map((child, idx) => {
-        console.log("child: ", child);
         return (
           <>
             <div className={child.className} key={idx}>
@@ -100,8 +99,6 @@ export const FormFieldGenerator = ({
   const setFormData = (key: string, value: any) => {
     _setFormData({ ...formData, [key]: value });
   };
-
-  console.log("props: ", schema);
 
   return (
     <FormDataContexts.Provider

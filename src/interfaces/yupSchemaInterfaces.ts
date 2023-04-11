@@ -19,7 +19,11 @@ export interface validationRequirementProps {
 
 export interface whenValidationProps {
   comparatorVariable: string;
-  is: boolean | ((yupVar: any) => boolean);
+  is: boolean | yupFormStoredProcedure;
   then: (schema: any) => any;
   otherwise?: (schema: any) => any;
+}
+
+export interface yupFormStoredProcedure {
+  functionName: string;
 }

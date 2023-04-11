@@ -4,6 +4,24 @@ import {
   whenValidationProps,
   yupFormBuilderProps,
 } from "../../interfaces/yupSchemaInterfaces";
+import { instanceOfyupFormStoredProcedure } from "../../utils/helpers";
+import { storedProcedures } from "./storedProcedures";
+
+const checkParamsForStoredProcedures = (params: any[]) => {
+  return params.map((param) => {
+    if (typeof param === "object" && instanceOfyupFormStoredProcedure(param)) {
+      if (
+        storedProcedures &&
+        storedProcedures[param.functionName as keyof typeof storedProcedures]
+      ) {
+        return storedProcedures[
+          param.functionName as keyof typeof storedProcedures
+        ];
+      }
+    }
+    return param;
+  });
+};
 
 // YupArgCreator is a function that takes a validationRequirementProps object or a string and a yup validator and returns the validator with the correct arguments.
 // If validation is a string, return the validator with that string as a key
@@ -26,7 +44,11 @@ export function yupArgCreator(
   }
 
   // if validation is an object, destructure type and params
-  const { params, type } = validation;
+  let { params, type } = validation;
+
+  if (params) {
+    params = checkParamsForStoredProcedures(params);
+  }
 
   // if the validator does not have the key in the type, return
   if (!validator[type as keyof typeof validator]) {
@@ -38,7 +60,14 @@ export function yupArgCreator(
     const { comparatorVariable, is, then, otherwise } = params[0];
     // create an object with the required when params
     let whenParams = { is: is, then: {} } as whenValidationProps;
-    whenParams.is = is;
+    whenParams.is =
+      is && instanceOfyupFormStoredProcedure(is)
+        ? (storedProcedures &&
+            storedProcedures[
+              is.functionName as keyof typeof storedProcedures
+            ]) ??
+          null
+        : is;
     // add the then object to the whenParams object
     whenParams.then = (schema: any) => schema[then[0].type](...then[0].params);
 
@@ -72,7 +101,6 @@ export const yupGeneration = (schema: yupFormBuilderProps) => {
 
       //check that the key is in the schema
       if (schema[key as keyof typeof schema]) {
-        console.log("we hit this");
         continue;
       }
 
