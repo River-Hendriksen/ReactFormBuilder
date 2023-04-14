@@ -45,7 +45,7 @@ export interface FieldWrapperPropsType {
   options?: RegisterOptions;
   classOverwrite?: string;
   labelClassName?: string;
-  isLabelLeft?: boolean;
+  isLabelLeft?: boolean | string;
   errMsg?: string;
   errorClassName?: string;
 }

@@ -5,6 +5,7 @@ const FormLabel: React.FC<LabelProps> = ({
   htmlFor,
   labelClassName,
 }) => {
+  console.log("label creations", labelContent, htmlFor, labelClassName);
   return (
     <label
       htmlFor={htmlFor ?? ""}

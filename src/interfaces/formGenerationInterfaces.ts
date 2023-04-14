@@ -21,7 +21,7 @@ export interface formBuilderProps {
 export interface formProperties {
   type: string;
   label: string;
-  isDisabled?: boolean;
+  isDisabled?: boolean | string;
   children?: formProp;
   labelClassName?: string;
   isLabelLeft?: boolean;

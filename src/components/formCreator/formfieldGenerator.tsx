@@ -15,6 +15,7 @@ import { yupFormBuilderProps } from "../../interfaces/yupSchemaInterfaces";
 import { FieldWrapperType } from "./forms/formWrappers/fieldWrapper";
 import { FieldContexts } from "./forms/fieldContexts";
 import { FormDataContexts } from "./forms/formDataContext";
+import React from "react";
 
 const Field = ({
   field,
@@ -23,10 +24,12 @@ const Field = ({
   field: formProperties;
   identifier: string;
 }) => {
+  const isDisabled =
+    (field.isDisabled == true || field.isDisabled == "true") ?? false;
   return (
     <FieldWrapperType
       fieldIdentity={identifier}
-      isDisabled={field.isDisabled}
+      isDisabled={isDisabled}
       type={field.type}
       isLabelLeft={field.isLabelLeft}
       labelClassName={field.labelClassName}
@@ -43,10 +46,21 @@ const RescursiveChildren = ({ children }: { children: formProp }) => {
       {Object.keys(children).map((key, idx) => {
         let field = children ? children[key] : ({} as formProperties);
         return (
-          <>
-            <Field key={idx} field={field} identifier={key} />
-            {field.children && <RescursiveChildren children={field.children} />}
-          </>
+          <React.Fragment
+            key={"Rescursive.React.Fragment.Children.Field" + idx + key}
+          >
+            <Field
+              key={"Rescursive.Children.Field" + idx + key}
+              field={field}
+              identifier={key}
+            />
+            {field.children && (
+              <RescursiveChildren
+                children={field.children}
+                key={"Rescursive.Children.Children" + idx + key}
+              />
+            )}
+          </React.Fragment>
         );
       })}
     </>
@@ -58,30 +72,48 @@ const RescursiveCluster = ({ children }: { children: clusterProp[] }) => {
     <>
       {children.map((child, idx) => {
         return (
-          <>
-            <div className={child.className} key={idx}>
+          <React.Fragment key={"Rescursive.React.Fragment.Cluster" + idx}>
+            <div className={child.className} key={"rescursive.cluster" + idx}>
               {child.title && (
                 <h2 className={child.titleClassName ?? ""}>{child.title}</h2>
               )}
               {child.fields &&
-                Object.keys(child.fields).map((key, idx) => {
+                Object.keys(child.fields).map((key, idcf) => {
                   let field = child.fields
                     ? child.fields[key]
                     : ({} as formProperties);
                   return (
-                    <>
-                      <Field key={idx} field={field} identifier={key} />
+                    <React.Fragment
+                      key={
+                        "Rescursive.React.Fragment.cluster.child.fields" +
+                        idcf +
+                        key
+                      }
+                    >
+                      <Field
+                        key={"rescursive.child.cluster" + idcf + key}
+                        field={field}
+                        identifier={key}
+                      />
                       {field.children && (
-                        <RescursiveChildren children={field.children} />
+                        <RescursiveChildren
+                          children={field.children}
+                          key={
+                            "rescursive.rescursive.child.cluster" + idcf + key
+                          }
+                        />
                       )}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               {child.children && (
-                <RescursiveCluster children={child.children} />
+                <RescursiveCluster
+                  children={child.children}
+                  key={"rescursive.child.children.cluster" + idx}
+                />
               )}
             </div>
-          </>
+          </React.Fragment>
         );
       })}
     </>
@@ -110,26 +142,35 @@ export const FormFieldGenerator = ({
       <div className="mx-20">
         {schema.properties.map((cluster, idx) => {
           return (
-            <div className={cluster.className} key={idx}>
+            <div className={cluster.className} key={"cluster-upper" + idx}>
               {cluster.fields &&
-                Object.keys(cluster.fields).map((key, idx) => {
+                Object.keys(cluster.fields).map((key, idcf) => {
                   let field = cluster.fields
                     ? cluster.fields[key]
                     : ({} as formProperties);
                   return (
-                    <>
-                      <Field key={idx} field={field} identifier={key} />
+                    <React.Fragment
+                      key={"React.Fragment.cluster.child.fields" + idcf + key}
+                    >
+                      <Field
+                        key={"cluster-inner" + key + idcf}
+                        field={field}
+                        identifier={key}
+                      />
                       {field.children && (
                         <RescursiveChildren
-                          key={idx + key + "child"}
+                          key={idcf + key + "child"}
                           children={field.children}
                         />
                       )}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               {cluster.children && (
-                <RescursiveCluster children={cluster.children} />
+                <RescursiveCluster
+                  children={cluster.children}
+                  key={"cluster-children" + idx}
+                />
               )}
             </div>
           );

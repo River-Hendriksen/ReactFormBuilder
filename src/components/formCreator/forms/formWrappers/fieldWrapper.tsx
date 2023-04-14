@@ -202,7 +202,9 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
             errorClassName={errorClassName}
           />
         )}
-        {(isLabelLeft == true || isLabelLeft == undefined) && (
+        {(isLabelLeft == true ||
+          isLabelLeft == "true" ||
+          isLabelLeft == undefined) && (
           <FormLabel
             htmlFor={fieldIdentity}
             labelContent={label ?? ""}
@@ -210,7 +212,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           />
         )}
         {inputType()}
-        {isLabelLeft == false && (
+        {(isLabelLeft == false || isLabelLeft == "false") && (
           <FormLabel
             htmlFor={fieldIdentity}
             labelContent={label ?? ""}
