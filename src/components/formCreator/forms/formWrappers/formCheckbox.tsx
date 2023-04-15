@@ -3,6 +3,7 @@ import { ChangeEventHandler } from "react";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { FormDataContexts } from "../formDataContext";
 import { BooleanProps } from "../../../../interfaces/sharedInterfaces";
+import classNames from "classnames";
 
 export const FormCheckbox: React.FC<BooleanProps> = ({
   registerLabel,
@@ -19,9 +20,11 @@ export const FormCheckbox: React.FC<BooleanProps> = ({
     ? formDataContexts?.formData[registerLabel]
     : false;
 
+  const classes = classNames(inputClassAdditions ?? "pt-4 pr-4");
+
   return (
     <ContextCheck fieldContexts={fieldContexts}>
-      <div className={inputClassAdditions ?? "pt-4 pr-4"}>
+      <div className={classes}>
         <label className="block relative pl-8 mb-2 select-none">
           <input
             disabled={isDisabled}

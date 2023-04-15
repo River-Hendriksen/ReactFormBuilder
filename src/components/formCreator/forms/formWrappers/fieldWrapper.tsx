@@ -14,6 +14,7 @@ import {
   FieldWrapperProps,
   FieldWrapperPropsType,
 } from "../../../../interfaces/formWrapperInterfaces";
+import classNames from "classnames";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   htmlFor,
@@ -192,9 +193,11 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
     }
   };
 
+  const wrapperClassNames = classNames(wrapperClassName ?? "mb-10 relative");
+
   return (
     <ContextCheck fieldContexts={fieldContexts}>
-      <div className={wrapperClassName ?? "mb-10 relative"}>
+      <div className={wrapperClassNames}>
         {fieldContexts!.errors && fieldContexts!.errors[fieldIdentity] && (
           <FieldErrorWrapper
             error={fieldContexts!.errors[fieldIdentity]}

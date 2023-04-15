@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChangeEventHandler } from "react";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { BooleanProps } from "../../../../interfaces/sharedInterfaces";
+import classNames from "classnames";
 
 export const FormBoolean: React.FC<BooleanProps> = ({
   registerLabel,
@@ -17,11 +18,13 @@ export const FormBoolean: React.FC<BooleanProps> = ({
     value != null ? value == true : undefined
   );
 
+  const classes = classNames(
+    inputClassAdditions ?? "ml-4 w-1/2 grid grid-cols-2 gap-3"
+  );
+
   return (
     <ContextCheck fieldContexts={fieldContexts}>
-      <div
-        className={inputClassAdditions ?? "ml-4 w-1/2 grid grid-cols-2 gap-3"}
-      >
+      <div className={classes}>
         <label className="flex cursor-pointer">
           <span className="text-md mr-2 mb-3 text-gray-500 leading-5">Yes</span>
           <input

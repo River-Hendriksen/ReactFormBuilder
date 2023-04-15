@@ -6,12 +6,14 @@ import { isEmpty } from "lodash";
 import { SchemaFormBuilderProps } from "../../interfaces/formGenerationInterfaces";
 import { yupGeneration } from "../yupSchemaCreator/yupSchemaGenerator";
 import { FieldContexts } from "./forms/fieldContexts";
+import classNames from "classnames";
 
 const ruleSetter = (validationSchema?: any) => {
   return validationSchema
     ? {
         mode: "onChange" as unknown as keyof ValidationMode | undefined,
         resolver: yupResolver(validationSchema),
+        context: { expectedValue: "hi" },
       }
     : {
         mode: "onChange" as unknown as keyof ValidationMode | undefined,
@@ -46,6 +48,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   );
 
   const watchedFields = watchFields ? watch(watchFields) : watch();
+  const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
 
   // Callback version of watch.  It's your responsibility to unsubscribe when done.
   useEffect(() => {
@@ -69,10 +72,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
         clearErrors: clearErrors,
       }}
     >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={formClass ?? " pb-10 md:py-10 mt-2 md:px-10"}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={classes}>
         <FormFieldGenerator schema={schema.formSchema} data={fieldData} />
         {children}
       </form>

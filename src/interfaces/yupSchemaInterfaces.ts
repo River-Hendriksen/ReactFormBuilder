@@ -26,4 +26,9 @@ export interface whenValidationProps {
 
 export interface yupFormStoredProcedure {
   functionName: string;
+  functionArguements: yupFormStoredProcedureArguementProps;
+}
+
+export interface yupFormStoredProcedureArguementProps {
+  [key: string]: string;
 }

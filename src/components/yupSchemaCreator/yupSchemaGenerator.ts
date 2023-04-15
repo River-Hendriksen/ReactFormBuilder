@@ -62,12 +62,13 @@ export function yupArgCreator(
     let whenParams = { is: is, then: {} } as whenValidationProps;
     whenParams.is =
       is && instanceOfyupFormStoredProcedure(is)
-        ? (storedProcedures &&
-            storedProcedures[
-              is.functionName as keyof typeof storedProcedures
-            ]) ??
-          null
-        : is;
+        ? storedProcedures &&
+          storedProcedures(is.functionName, is.functionArguements)
+        : // [
+          //   is.functionName as keyof typeof storedProcedures
+          // ]) ??
+          // null
+          is;
     // add the then object to the whenParams object
     whenParams.then = (schema: any) => schema[then[0].type](...then[0].params);
 

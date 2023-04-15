@@ -16,6 +16,7 @@ import { FieldWrapperType } from "./forms/formWrappers/fieldWrapper";
 import { FieldContexts } from "./forms/fieldContexts";
 import { FormDataContexts } from "./forms/formDataContext";
 import React from "react";
+import classNames from "classnames";
 
 const Field = ({
   field,
@@ -26,6 +27,7 @@ const Field = ({
 }) => {
   const isDisabled =
     (field.isDisabled == true || field.isDisabled == "true") ?? false;
+
   return (
     <FieldWrapperType
       fieldIdentity={identifier}
@@ -71,12 +73,12 @@ const RescursiveCluster = ({ children }: { children: clusterProp[] }) => {
   return (
     <>
       {children.map((child, idx) => {
+        const classes = classNames(child.className);
+        const titleClasses = classNames(child.titleClassName);
         return (
           <React.Fragment key={"Rescursive.React.Fragment.Cluster" + idx}>
-            <div className={child.className} key={"rescursive.cluster" + idx}>
-              {child.title && (
-                <h2 className={child.titleClassName ?? ""}>{child.title}</h2>
-              )}
+            <div className={classes} key={"rescursive.cluster" + idx}>
+              {child.title && <h2 className={titleClasses}>{child.title}</h2>}
               {child.fields &&
                 Object.keys(child.fields).map((key, idcf) => {
                   let field = child.fields
@@ -141,8 +143,9 @@ export const FormFieldGenerator = ({
     >
       <div className="mx-20">
         {schema.properties.map((cluster, idx) => {
+          const classes = classNames(cluster.className);
           return (
-            <div className={cluster.className} key={"cluster-upper" + idx}>
+            <div className={classes} key={"cluster-upper" + idx}>
               {cluster.fields &&
                 Object.keys(cluster.fields).map((key, idcf) => {
                   let field = cluster.fields
@@ -241,7 +244,7 @@ export const FormBuilder: React.FC<schemaFormBuilderProps> = ({
   useEffect(() => {
     fieldChanged(!isEmpty(watchedFields));
   }, [watchedFields, fieldChanged]);
-
+  const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
   return (
     <FieldContexts.Provider
       value={{
@@ -259,10 +262,7 @@ export const FormBuilder: React.FC<schemaFormBuilderProps> = ({
         clearErrors: clearErrors,
       }}
     >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={formClass ?? " pb-10 md:py-10 mt-2 md:px-10"}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={classes}>
         <FormFieldGenerator schema={schema.formSchema} data={fieldData} />
         {children}
       </form>
