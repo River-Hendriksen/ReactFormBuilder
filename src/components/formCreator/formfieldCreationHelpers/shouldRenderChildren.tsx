@@ -4,12 +4,19 @@ import { FormDataContexts } from "../forms/formDataContext";
 
 export const shouldRenderChildren = (field: FormProperties) => {
   const formDataContexts = useContext(FormDataContexts);
+  const { conditionallyShowChildren } = field;
 
-  return (
-    !field?.conditionallyShowChildren ||
-    field.conditionallyShowChildren.every(
-      ({ formField, conditionValue }) =>
-        formDataContexts?.formData[formField] === conditionValue
-    )
+  if (!conditionallyShowChildren) {
+    return true;
+  }
+
+  return conditionallyShowChildren.every(
+    ({ formField, fieldToCompare, conditionValue }) => {
+      const formDataValue = formDataContexts?.formData[formField];
+
+      return fieldToCompare
+        ? formDataValue === formDataContexts?.formData[fieldToCompare]
+        : formDataValue === conditionValue;
+    }
   );
 };
