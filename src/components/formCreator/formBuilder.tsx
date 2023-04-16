@@ -7,14 +7,12 @@ import { SchemaFormBuilderProps } from "../../interfaces/formGenerationInterface
 import { yupGeneration } from "../yupSchemaCreator/yupSchemaGenerator";
 import { FieldContexts } from "./forms/fieldContexts";
 import classNames from "classnames";
-import { generateDynamicClasses } from "../tailwindGenerateDynamicClasses/generateDynamicClasses";
 
 const ruleSetter = (validationSchema?: any) => {
   return validationSchema
     ? {
         mode: "onChange" as unknown as keyof ValidationMode | undefined,
         resolver: yupResolver(validationSchema),
-        context: { expectedValue: "hi" },
       }
     : {
         mode: "onChange" as unknown as keyof ValidationMode | undefined,

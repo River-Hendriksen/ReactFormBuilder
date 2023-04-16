@@ -37,7 +37,7 @@ export function generateDynamicClasses(dynamicClassesJson: string): string {
 
     addClassNames(dynamicClassesObj);
     const classNames = Array.from(classNamesSet).join(" ");
-    console.log("classNames", classNames);
+
     setDynamicClasses(classNames);
   }, [dynamicClassesJson]);
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormFieldGeneratorProps } from "../../interfaces/formGenerationInterfaces";
 import { FormDataContexts } from "./forms/formDataContext";
 import React from "react";
@@ -17,7 +17,7 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
   };
 
   return (
-    <FormDataContexts.Provider value={{ formData, setFormData }}>
+    <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
       <div className="mx-20">
         {schema.properties.map((cluster, idx) => (
           <div className={cluster.className} key={`cluster.${idx}`}>
@@ -27,9 +27,10 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
                   key={`React.Fragment.cluster.child.fields${idcf}${key}`}
                 >
                   <Field field={field ?? {}} identifier={key} />
-                  {shouldRenderChildren(field) && field?.children && (
+                  {shouldRenderChildren(field, formData) && field?.children && (
                     <RecursiveChildren
                       children={field.children}
+                      formData={formData}
                       key={`FormFieldGenerator.cluster.child.${idcf}.${key}`}
                     />
                   )}
@@ -38,6 +39,7 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
             {cluster.children && (
               <RecursiveCluster
                 children={cluster.children}
+                formData={formData}
                 key={`FormFieldGenerator.cluster.children.${idx}`}
               />
             )}

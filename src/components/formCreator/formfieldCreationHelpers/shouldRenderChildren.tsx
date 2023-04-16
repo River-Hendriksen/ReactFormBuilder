@@ -1,22 +1,19 @@
-import { useContext } from "react";
-import { FormProperties } from "../../../interfaces/formGenerationInterfaces";
-import { FormDataContexts } from "../forms/formDataContext";
+import { FormProperties } from '../../../interfaces/formGenerationInterfaces';
 
-export const shouldRenderChildren = (field: FormProperties) => {
-  const formDataContexts = useContext(FormDataContexts);
-  const { conditionallyShowChildren } = field;
+export const shouldRenderChildren = (field: FormProperties, formData: any) => {
+    const { conditionallyShowChildren } = field;
 
-  if (!conditionallyShowChildren) {
-    return true;
-  }
-
-  return conditionallyShowChildren.every(
-    ({ formField, fieldToCompare, conditionValue }) => {
-      const formDataValue = formDataContexts?.formData[formField];
-
-      return fieldToCompare
-        ? formDataValue === formDataContexts?.formData[fieldToCompare]
-        : formDataValue === conditionValue;
+    if (!conditionallyShowChildren) {
+        return true;
     }
-  );
+
+    return conditionallyShowChildren.every(
+        ({ formField, fieldToCompare, conditionValue }) => {
+            const formDataValue = formData[formField];
+
+            return fieldToCompare
+                ? formDataValue === formData[fieldToCompare]
+                : formDataValue === conditionValue;
+        }
+    );
 };
