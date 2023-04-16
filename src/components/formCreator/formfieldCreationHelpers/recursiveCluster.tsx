@@ -1,5 +1,7 @@
 import React from "react";
 import { ClusterProp } from "../../../interfaces/formGenerationInterfaces";
+import { RecursiveChildren } from "./recursiveChildren";
+import { Field } from "./field";
 
 export const RecursiveCluster = ({ children }: { children: ClusterProp[] }) => {
   return (

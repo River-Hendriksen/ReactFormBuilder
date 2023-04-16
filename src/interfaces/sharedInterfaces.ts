@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react";
 import { RegisterOptions } from "react-hook-form";
-import { formBuilderProps } from "./formGenerationInterfaces";
+import { FormBuilderProps } from "./formGenerationInterfaces";
 import { yupFormBuilderProps } from "./yupSchemaInterfaces";
 
 export interface AnyObject {
@@ -68,6 +68,6 @@ export interface InputProps {
 
 export interface CompleteFormProps {
   type: string;
-  formSchema: formBuilderProps;
+  formSchema: FormBuilderProps;
   yupSchema: yupFormBuilderProps;
 }
