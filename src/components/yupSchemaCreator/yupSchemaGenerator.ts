@@ -10,17 +10,48 @@ import { storedProcedures } from "./storedProcedures";
 const checkParamsForStoredProcedures = (params: any[]) => {
   return params.map((param) => {
     if (typeof param === "object" && instanceOfyupFormStoredProcedure(param)) {
-      if (
-        storedProcedures &&
-        storedProcedures[param.functionName as keyof typeof storedProcedures]
-      ) {
-        return storedProcedures[
-          param.functionName as keyof typeof storedProcedures
-        ];
-      }
+      return storedProcedures(param.functionName, param.functionArguements);
     }
     return param;
   });
+};
+
+export const whenGeneration = (
+  validator: any,
+  params: any[],
+  parentType?: string
+) => {
+  const { comparatorVariable, is, then, otherwise } = params[0];
+  // create an object with the required when params
+  let whenParams = { is: is, then: {} } as whenValidationProps;
+  whenParams.is =
+    is && instanceOfyupFormStoredProcedure(is)
+      ? storedProcedures(is.functionName, is.functionArguements)
+      : is;
+
+  whenParams.then = (schema: any) => {
+    let thenValidator = schema;
+    then?.map((thenParams: validationRequirementProps) => {
+      const { type, params } = thenParams;
+      let tmpValidator = yupArgCreator(thenParams, schema, parentType);
+      if (tmpValidator) {
+        thenValidator = tmpValidator;
+      }
+    });
+    return thenValidator;
+  };
+
+  // if there is an otherwise param, add it to the whenParams object
+  if (otherwise) {
+    whenParams.otherwise = (schema: any) =>
+      schema[otherwise[0].type](...otherwise[0].params);
+  }
+
+  // return the validator with the when key and the whenParams object
+  return validator["when" as keyof typeof validator](
+    comparatorVariable,
+    whenParams
+  );
 };
 
 // YupArgCreator is a function that takes a validationRequirementProps object or a string and a yup validator and returns the validator with the correct arguments.
@@ -33,10 +64,10 @@ const checkParamsForStoredProcedures = (params: any[]) => {
 // If there is an otherwise param, add it to the whenParams object
 // Return the validator with the when key and the whenParams object
 // If type is not when, return the validator with the type key and the params array
-
 export function yupArgCreator(
   validation: validationRequirementProps | string,
-  validator: any
+  validator: any,
+  parentType?: string
 ) {
   // if validation is a string, return the validator with that string as a key
   if (typeof validation === "string") {
@@ -57,32 +88,7 @@ export function yupArgCreator(
 
   // if the type is when, and params exists, and the first param is an object, destructure the object
   if (type === "when" && params?.length > 0 && typeof params[0] === "object") {
-    const { comparatorVariable, is, then, otherwise } = params[0];
-    // create an object with the required when params
-    let whenParams = { is: is, then: {} } as whenValidationProps;
-    whenParams.is =
-      is && instanceOfyupFormStoredProcedure(is)
-        ? storedProcedures &&
-          storedProcedures(is.functionName, is.functionArguements)
-        : // [
-          //   is.functionName as keyof typeof storedProcedures
-          // ]) ??
-          // null
-          is;
-    // add the then object to the whenParams object
-    whenParams.then = (schema: any) => schema[then[0].type](...then[0].params);
-
-    // if there is an otherwise param, add it to the whenParams object
-    if (otherwise) {
-      whenParams.otherwise = (schema: any) =>
-        schema[otherwise[0].type](...otherwise[0].params);
-    }
-
-    // return the validator with the when key and the whenParams object
-    return validator["when" as keyof typeof validator](
-      comparatorVariable,
-      whenParams
-    );
+    return whenGeneration(validator, params, parentType);
   } else {
     // if type is not when, return the validator with the type key and the params array
     return validator[type as keyof typeof validator](...params);
@@ -91,8 +97,10 @@ export function yupArgCreator(
 
 //this function creates a yup schema from a form schema
 export const yupGeneration = (schema: yupFormBuilderProps) => {
+  // schema = startSchema.yupSchema;
   //properties in the schema
   const { properties } = schema;
+
   const yupSchema = {};
   try {
     //iterate through the properties in the schema
@@ -111,7 +119,7 @@ export const yupGeneration = (schema: yupFormBuilderProps) => {
       //validations can be a string or an object
       validations?.forEach((validation) => {
         //create a new validator for the property
-        let tmpValidator = yupArgCreator(validation, validator);
+        let tmpValidator = yupArgCreator(validation, validator, type);
         if (tmpValidator) {
           validator = tmpValidator;
         }
@@ -123,6 +131,7 @@ export const yupGeneration = (schema: yupFormBuilderProps) => {
   } catch (e) {
     console.log("error", e);
   }
+
   //return the schema
   return yup.object().shape(yupSchema);
 };

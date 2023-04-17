@@ -36,10 +36,7 @@ export interface BooleanProps {
   options?: RegisterOptions;
   inputClassAdditions?: string;
   isDisabled?: boolean;
-  updateStateVar?:
-    | ChangeEventHandler<HTMLInputElement>
-    | ChangeEventHandler<HTMLTextAreaElement>
-    | undefined;
+  updateStateVar: (e: any, formField: string) => void;
 }
 
 export interface DateTimeProps {
