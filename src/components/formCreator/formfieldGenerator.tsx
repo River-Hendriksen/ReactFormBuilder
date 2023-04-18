@@ -6,6 +6,7 @@ import { shouldRenderChildren } from "./formfieldCreationHelpers/shouldRenderChi
 import { Field } from "./formfieldCreationHelpers/field";
 import { RecursiveChildren } from "./formfieldCreationHelpers/recursiveChildren";
 import { RecursiveCluster } from "./formfieldCreationHelpers/recursiveCluster";
+import { FieldChildWrapper } from "./forms/formWrappers/fieldWrapper";
 
 export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
   schema,
@@ -21,6 +22,9 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
       <div className="mx-20">
         {schema.properties.map((cluster, idx) => (
           <div className={cluster.className} key={`cluster.${idx}`}>
+            {cluster.title && (
+              <h2 className={cluster.titleClassName}>{cluster.title}</h2>
+            )}
             {cluster.fields &&
               Object.entries(cluster.fields).map(([key, field], idcf) => (
                 <React.Fragment
@@ -28,11 +32,13 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
                 >
                   <Field field={field ?? {}} identifier={key} />
                   {shouldRenderChildren(field, formData) && field?.children && (
-                    <RecursiveChildren
-                      children={field.children}
-                      formData={formData}
-                      key={`FormFieldGenerator.cluster.child.${idcf}.${key}`}
-                    />
+                    <FieldChildWrapper>
+                      <RecursiveChildren
+                        children={field.children}
+                        formData={formData}
+                        key={`FormFieldGenerator.cluster.child.${idcf}.${key}`}
+                      />
+                    </FieldChildWrapper>
                   )}
                 </React.Fragment>
               ))}
