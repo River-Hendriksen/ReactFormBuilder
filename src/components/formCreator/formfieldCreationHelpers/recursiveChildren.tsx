@@ -20,7 +20,9 @@ export const RecursiveChildren = ({
           >
             <Field field={field} identifier={key} />
             {shouldRenderChildren(field, formData) && field.children && (
-              <FieldChildWrapper>
+              <FieldChildWrapper
+                wrapperClassName={field.childrenWrapperClassName}
+              >
                 <RecursiveChildren
                   children={field.children}
                   formData={formData}

@@ -29,6 +29,8 @@ export interface FormProperties {
   isDisabled?: boolean | string;
   children?: FormProp;
   labelClassName?: string;
+  inputClassName?: string;
+  childrenWrapperClassName?: string;
   isLabelLeft?: boolean;
   conditionallyShowChildren?: ConditionallyShowChildren[];
   wrapperClassName?: string;

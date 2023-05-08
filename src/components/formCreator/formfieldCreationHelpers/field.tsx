@@ -10,6 +10,7 @@ export const Field = ({ field, identifier }: FieldProp) => {
       }
       type={field.type}
       isLabelLeft={field.isLabelLeft}
+      inputClassName={field.inputClassName}
       labelClassName={field.labelClassName}
       label={field.label}
       ddOptions={field.dropDownOptions}

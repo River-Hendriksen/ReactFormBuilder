@@ -41,7 +41,7 @@ export interface FieldWrapperPropsType {
   updateStateVar?: any;
   ddOptions?: SelectOptions[];
   wrapperClassName?: string;
-  inputClassAdditions?: string;
+  inputClassName?: string;
   options?: RegisterOptions;
   classOverwrite?: string;
   labelClassName?: string;
