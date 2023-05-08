@@ -1,5 +1,4 @@
 import React from "react";
-import { ChangeEventHandler } from "react";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { FormDataContexts } from "../formDataContext";
 import { BooleanProps } from "../../../../interfaces/sharedInterfaces";
@@ -30,8 +29,8 @@ export const FormCheckbox: React.FC<BooleanProps> = ({
             disabled={isDisabled}
             className={"checkbox checkbox-sm"}
             type="checkbox"
+            checked={fieldValue}
             id={registerLabel}
-            defaultValue={fieldValue}
             {...fieldContexts!.register(registerLabel as string, options)}
             onChange={(e) => {
               updateStateVar(e.target.checked, registerLabel);
