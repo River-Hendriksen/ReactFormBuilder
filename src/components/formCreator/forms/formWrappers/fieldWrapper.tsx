@@ -242,7 +242,9 @@ export const FieldChildWrapper: React.FC<FieldChildWrapperProps> = ({
       {error && <FieldErrorWrapper error={error} errorClassName={"ml-5"} />}
 
       <div
-        className={wrapperClassName ?? "ml-5 pl-5 border-l-2 border-slate-300"}
+        className={
+          wrapperClassName ?? "ml-10 pl-10 pr-10 border-l-2 border-slate-300"
+        }
       >
         {children}
       </div>
