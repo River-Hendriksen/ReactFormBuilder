@@ -13,10 +13,11 @@ export const FormCheckbox: React.FC<BooleanProps> = ({
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
 
-  let isDisabled = formDataContexts?.isDisabled ?? fieldContexts?.isLocked;
+  let isDisabled =
+    formDataContexts?.isDisabled ?? fieldContexts?.isLocked ?? false;
 
   let fieldValue = formDataContexts?.formData
-    ? formDataContexts?.formData[registerLabel]
+    ? formDataContexts?.formData[registerLabel] ?? false
     : false;
 
   const classes = classNames(inputClassAdditions ?? "pt-4 pr-4");
