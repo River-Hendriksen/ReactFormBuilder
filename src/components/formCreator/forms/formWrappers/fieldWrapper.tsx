@@ -193,6 +193,17 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           />
         );
       }
+      // case "plainText": {
+      //   return (
+      //     <FormDateTime
+      //       registerLabel={fieldIdentity}
+      //       value={fieldValue}
+      //       updateStateVar={updateDateTimePicker}
+      //       inputClassAdditions={inputClassName}
+      //       isDisabled={isDisabled}
+      //     />
+      //   );
+      // }
       default:
         return <></>;
     }
