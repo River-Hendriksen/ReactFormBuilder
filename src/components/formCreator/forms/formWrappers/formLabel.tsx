@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { LabelProps } from "../../../../interfaces/sharedInterfaces";
+import { ConvertText } from "../../../textParser/textParser";
 
 const FormLabel: React.FC<LabelProps> = ({
   labelContent,
@@ -13,7 +14,9 @@ const FormLabel: React.FC<LabelProps> = ({
 
   return (
     <label htmlFor={htmlFor ?? ""} className={labelClassNames}>
-      <p className="mt-auto">{labelContent}</p>
+      <p className="mt-auto">
+        <ConvertText text={labelContent} />
+      </p>
     </label>
   );
 };
