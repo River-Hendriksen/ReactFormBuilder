@@ -18,6 +18,22 @@ export interface SelectOptions {
   label: string;
 }
 
+export interface CheckBoxArrayProps {
+  registerLabel: string;
+  ddValue: any;
+  isDisabled?: boolean;
+  ddOptions: SelectOptions[] | null;
+  inputClassAdditions?: string;
+  classOverwrite?: string;
+  updateStateVar: (e: any, formField: string, idx: number) => void;
+  options?: RegisterOptions;
+}
+
+export interface CheckBoxArrayObjectValueProps {
+  id: number;
+  isChecked: boolean;
+}
+
 export interface DropDownProps {
   registerLabel: string;
   ddValue: any;

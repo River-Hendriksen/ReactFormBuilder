@@ -15,6 +15,8 @@ import {
   FieldWrapperPropsType,
 } from "../../../../interfaces/formWrapperInterfaces";
 import classNames from "classnames";
+import { CheckBoxArray } from "./formArray";
+import { CheckBoxArrayObjectValueProps } from "../../../../interfaces/sharedInterfaces";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   htmlFor,
@@ -99,6 +101,24 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   const updateValCheckBox = (e: any, formField: string) => {
     fieldContexts!.setValue(formField, e);
     formDataContexts?.setFormData(formField, e);
+  };
+
+  const updateCheckboxArrayChange = (
+    e: any,
+    formField: string,
+    idx: number
+  ) => {
+    const updatedFormData = [...formDataContexts?.formData[formField]]; // Create a copy of the array
+
+    const updateCheck: CheckBoxArrayObjectValueProps = {
+      ...updatedFormData[idx], // Copy the existing object at the specified index
+      isChecked: e, // Update the isChecked property
+    };
+
+    updatedFormData[idx] = updateCheck; // Replace the object at the specified index with the updated object
+
+    formDataContexts?.setFormData(formField, updatedFormData); // Update the formData array in the context
+    fieldContexts!.setValue(formField, updatedFormData);
   };
 
   let fieldValue = formDataContexts?.formData
@@ -193,17 +213,21 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           />
         );
       }
-      // case "plainText": {
-      //   return (
-      //     <FormDateTime
-      //       registerLabel={fieldIdentity}
-      //       value={fieldValue}
-      //       updateStateVar={updateDateTimePicker}
-      //       inputClassAdditions={inputClassName}
-      //       isDisabled={isDisabled}
-      //     />
-      //   );
-      // }
+      case "checkboxArray": {
+        if (!ddOptions) return;
+        return (
+          <CheckBoxArray
+            registerLabel={fieldIdentity}
+            ddValue={fieldValue}
+            ddOptions={ddOptions}
+            inputClassAdditions={inputClassName}
+            options={options}
+            classOverwrite={classOverwrite}
+            isDisabled={isDisabled}
+            updateStateVar={updateCheckboxArrayChange}
+          />
+        );
+      }
       default:
         return <></>;
     }
