@@ -2,6 +2,7 @@ import { ChangeEventHandler } from "react";
 import { RegisterOptions } from "react-hook-form";
 import { FormBuilderProps } from "./formGenerationInterfaces";
 import { yupFormBuilderProps } from "./yupSchemaInterfaces";
+import { LikertLabelProps } from "./formWrapperInterfaces";
 
 export interface AnyObject {
   [name: string]: any;
@@ -22,11 +23,15 @@ export interface CheckBoxArrayProps {
   registerLabel: string;
   ddValue: any;
   isDisabled?: boolean;
-  ddOptions: SelectOptions[] | null;
+  userOptions: SelectOptions[] | null;
   inputClassAdditions?: string;
   classOverwrite?: string;
   updateStateVar: (e: any, formField: string, idx: number) => void;
   options?: RegisterOptions;
+}
+
+export interface LikertProps extends CheckBoxArrayProps {
+  likertLabels?: LikertLabelProps;
 }
 
 export interface CheckBoxArrayObjectValueProps {
@@ -38,7 +43,7 @@ export interface DropDownProps {
   registerLabel: string;
   ddValue: any;
   isDisabled?: boolean;
-  ddOptions: SelectOptions[] | null;
+  userOptions: SelectOptions[] | null;
   inputClassAdditions?: string;
   classOverwrite?: string;
   updateStateVar: ChangeEventHandler<HTMLSelectElement>;

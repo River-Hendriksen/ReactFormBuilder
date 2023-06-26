@@ -39,7 +39,7 @@ export interface FieldWrapperPropsType {
   label?: string;
   maxLength?: number;
   updateStateVar?: any;
-  ddOptions?: SelectOptions[];
+  userOptions?: SelectOptions[];
   wrapperClassName?: string;
   inputClassName?: string;
   options?: RegisterOptions;
@@ -48,6 +48,12 @@ export interface FieldWrapperPropsType {
   isLabelLeft?: boolean | string;
   errMsg?: string;
   errorClassName?: string;
+  likertLabels?: LikertLabelProps;
+}
+
+export interface LikertLabelProps {
+  minLabel?: string;
+  maxLabel?: string;
 }
 
 export interface FieldChildWrapperProps {

@@ -9,7 +9,7 @@ export const FormDropDown: React.FC<DropDownProps> = ({
   ddValue,
   inputClassAdditions,
   classOverwrite,
-  ddOptions,
+  userOptions,
   updateStateVar,
 }) => {
   const fieldContexts = React.useContext(FieldContexts);
@@ -33,8 +33,8 @@ export const FormDropDown: React.FC<DropDownProps> = ({
         onChange={updateStateVar}
       >
         <option value=""></option>
-        {ddOptions &&
-          ddOptions.map((opt, optIdx) => (
+        {userOptions &&
+          userOptions.map((opt, optIdx) => (
             <option className="text-xs" key={optIdx} value={opt.value}>
               {opt.label}
             </option>

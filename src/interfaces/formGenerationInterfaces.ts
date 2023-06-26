@@ -34,7 +34,7 @@ export interface FormProperties {
   isLabelLeft?: boolean;
   conditionallyShowChildren?: ConditionallyShowChildren[];
   wrapperClassName?: string;
-  dropDownOptions?: SelectOptions[];
+  userOptions?: SelectOptions[];
 }
 
 interface ConditionallyShowChildren {
