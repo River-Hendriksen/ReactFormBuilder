@@ -15,8 +15,9 @@ import {
   FieldWrapperPropsType,
 } from "../../../../interfaces/formWrapperInterfaces";
 import classNames from "classnames";
-import { CheckBoxArray } from "./formArray";
+
 import { CheckBoxArrayObjectValueProps } from "../../../../interfaces/sharedInterfaces";
+import { CheckBoxArray } from "./checkBoxArray";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   htmlFor,

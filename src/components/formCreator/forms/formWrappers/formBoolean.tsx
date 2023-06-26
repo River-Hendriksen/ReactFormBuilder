@@ -24,7 +24,7 @@ export const FormBoolean: React.FC<BooleanProps> = ({
     <ContextCheck fieldContexts={fieldContexts}>
       <div className={classes}>
         <label className="flex cursor-pointer">
-          <span className="text-md mr-2 mb-3 text-gray-500 leading-5">Yes</span>
+          <span className="text-md mr-2 mb-3 text-gray-700 leading-5">Yes</span>
           <input
             type="radio"
             checked={curBool == true}
@@ -39,11 +39,11 @@ export const FormBoolean: React.FC<BooleanProps> = ({
         </label>
 
         <label className="flex cursor-pointer">
-          <span className="text-md mr-2 mb-3 text-gray-500 leading-5">No</span>
+          <span className="text-md mr-2 mb-3 text-gray-700 leading-5">No</span>
           <input
             type="radio"
             checked={curBool == false}
-            className="radio radio-xs text-gray-500 checked:bg-gray-500 mt-1"
+            className="radio radio-xs text-gray-700 checked:bg-gray-500 mt-1"
             value="false"
             {...fieldContexts!.register(registerLabel as string, options)}
             onChange={(e) => {
