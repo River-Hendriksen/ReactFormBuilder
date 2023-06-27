@@ -49,6 +49,7 @@ export interface FieldWrapperPropsType {
   errMsg?: string;
   errorClassName?: string;
   likertLabels?: LikertLabelProps;
+  badgeTextAppend?: string;
 }
 
 export interface LikertLabelProps {
