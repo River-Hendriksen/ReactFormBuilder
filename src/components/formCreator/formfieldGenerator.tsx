@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { FormFieldGeneratorProps } from "../../interfaces/formGenerationInterfaces";
+import {
+  FormBuilderProps,
+  FormFieldGeneratorProps,
+} from "../../interfaces/formGenerationInterfaces";
 import { FormDataContexts } from "./forms/formDataContext";
 import React from "react";
 import { shouldRenderChildren } from "./formfieldCreationHelpers/shouldRenderChildren";
@@ -13,13 +16,26 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
   data,
 }) => {
   const [formData, _setFormData] = useState<any>(data);
+
+  //have to make this a state because otherwise there is a race condition with formdata
+  //could maybe combine this with formData but meh
+  const [schemaData, setSchema] = useState<FormBuilderProps>(schema);
+
   const setFormData = (key: string, value: any) => {
     _setFormData({ ...formData, [key]: value });
   };
 
+  useEffect(() => {
+    setSchema(schema);
+  }, [schema]);
+
+  useEffect(() => {
+    _setFormData(data);
+  }, [data, schemaData]);
+
   return (
     <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
-      {schema.properties.map((cluster, idx) => (
+      {schemaData.properties.map((cluster, idx) => (
         <div className={cluster.className} key={`cluster.${idx}`}>
           {cluster.title && (
             <h2 className={cluster.titleClassName}>{cluster.title}</h2>

@@ -249,7 +249,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
             errorClassName={errorClassName}
           />
         )}
-        {shouldRenderLabelLeft && (
+        {shouldRenderLabelLeft && label && (
           <FormLabel
             htmlFor={fieldIdentity}
             labelContent={label || ""}
@@ -257,7 +257,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           />
         )}
         {inputType()}
-        {!shouldRenderLabelLeft && (
+        {!shouldRenderLabelLeft && label && (
           <FormLabel
             htmlFor={fieldIdentity}
             labelContent={label || ""}

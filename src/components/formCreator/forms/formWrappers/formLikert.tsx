@@ -38,20 +38,20 @@ export const FormLikert: React.FC<LikertProps> = ({
         {userOptions?.map((opt, idx) => (
           <div
             key={idx}
-            className="grid grid-rows-2 grid-flow-col items-center mr-4"
+            className="grid grid-rows-2 grid-flow-col items-center mr-5"
           >
             <input
               type="radio"
               disabled={isDisabled}
               id={`${registerLabel}-${opt.value.toString()}`}
-              className="radio radio-xs checked:bg-gray-500"
+              className="radio radio-xs checked:bg-gray-500 m-auto"
               value={opt.value}
               {...fieldContexts!.register(registerLabel as string, options)}
             />
 
             <label
               htmlFor={`${registerLabel}-${opt.value.toString()}`}
-              className="mt-1"
+              className="mt-1 m-auto"
             >
               {opt.label}
             </label>

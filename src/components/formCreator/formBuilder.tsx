@@ -1,12 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ValidationMode, useForm } from "react-hook-form";
 import { FormFieldGenerator } from "./formfieldGenerator";
-import { isEmpty } from "lodash";
+
 import { SchemaFormBuilderProps } from "../../interfaces/formGenerationInterfaces";
 import { yupGeneration } from "../yupSchemaCreator/yupSchemaGenerator";
 import { FieldContexts } from "./forms/fieldContexts";
 import classNames from "classnames";
+import { isEmpty } from "../../utils/helpers";
 
 const ruleSetter = (validationSchema?: any) => {
   return validationSchema
@@ -26,7 +27,6 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   fieldData,
   watchFields,
   formClass,
-  fieldChanged,
   onSubmit,
 }) => {
   const {
@@ -46,13 +46,20 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
     ruleSetter(schema.yupSchema ? yupGeneration(schema.yupSchema) : undefined)
   );
 
+  //changes when values are set on the form
+  const [isChanged, setIsChanged] = useState<boolean>(false);
+
   const watchedFields = watchFields ? watch(watchFields) : watch();
   const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
 
   // Callback version of watch.  It's your responsibility to unsubscribe when done.
   useEffect(() => {
-    fieldChanged(!isEmpty(watchedFields));
-  }, [watchedFields, fieldChanged]);
+    setIsChanged(!isEmpty(watchedFields));
+  }, [watchedFields, isChanged]);
+
+  useEffect(() => {
+    reset();
+  }, [fieldData]);
 
   return (
     <FieldContexts.Provider

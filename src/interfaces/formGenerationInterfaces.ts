@@ -50,7 +50,6 @@ export interface SchemaFormBuilderProps {
   schema: CompleteFormProps;
   formClass?: string;
   fieldData?: any;
-  fieldChanged: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit: (data: any) => void;
 }
 
