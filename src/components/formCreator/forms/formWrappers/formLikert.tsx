@@ -19,7 +19,7 @@ export const FormLikert: React.FC<LikertProps> = ({
     (inputClassAdditions ?? "") +
       " " +
       (fieldContexts?.isLocked ? "!bg-slate-200 !cursor-not-allowed " : "") +
-      (classOverwrite ?? "flex items-center justify-center p-4")
+      (classOverwrite ?? "md:flex items-center justify-center p-4")
   );
   let isDisabled =
     formDataContexts?.isDisabled ?? fieldContexts?.isLocked ?? false;
@@ -29,7 +29,7 @@ export const FormLikert: React.FC<LikertProps> = ({
       <div className={classes}>
         {likertLabels?.minLabel && (
           <label
-            className="block text-gray-700 text-sm font-bold mr-10"
+            className="block text-gray-700 text-sm font-bold text-center md:mr-10 mb-5 md:mb-0"
             htmlFor={registerLabel}
           >
             {likertLabels?.minLabel}
@@ -38,7 +38,7 @@ export const FormLikert: React.FC<LikertProps> = ({
         {userOptions?.map((opt, idx) => (
           <div
             key={idx}
-            className="grid grid-rows-2 grid-flow-col items-center mr-5"
+            className="grid grid-rows-2 grid-flow-col items-center mb-5 md:mb-0 md:mr-5"
           >
             <input
               type="radio"
@@ -60,7 +60,7 @@ export const FormLikert: React.FC<LikertProps> = ({
 
         {likertLabels?.maxLabel && (
           <label
-            className="block text-gray-700 text-sm font-bold mr-4 ml-10"
+            className="block text-gray-700 text-sm font-bold text-center  md:mr-4 md:ml-10  mb-5 md:mb-0"
             htmlFor={registerLabel}
           >
             {likertLabels.maxLabel}

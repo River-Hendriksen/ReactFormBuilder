@@ -280,7 +280,8 @@ export const FieldChildWrapper: React.FC<FieldChildWrapperProps> = ({
 
       <div
         className={
-          wrapperClassName ?? "ml-10 pl-10 pr-10 border-l-2 border-slate-300"
+          wrapperClassName ??
+          "ml-5 pl-5 pr-5 md:ml-10 md:pl-10 md:pr-10 border-l-2 border-slate-300"
         }
       >
         {children}
