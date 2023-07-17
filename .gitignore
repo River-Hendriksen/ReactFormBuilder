@@ -8,8 +8,11 @@
 /dist/*
 .rollup.cache/
 /.rollup.cache/*
-
-
+.sodalite 
+/.sodalite/*
+~/.sodalite/*
+.sodalite/*
+/.sodalite/
 # testing
 /coverage
 
