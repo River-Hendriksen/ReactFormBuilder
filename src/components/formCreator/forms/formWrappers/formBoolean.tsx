@@ -23,32 +23,32 @@ export const FormBoolean: React.FC<BooleanProps> = ({
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <div className={classes}>
-        <label className="flex cursor-pointer">
-          <span className="text-md mr-2 mb-3 text-gray-700 leading-5">Yes</span>
+        <label className="flex cursor-pointer my-auto mr-5">
+          <span className="text-md mr-2  text-gray-700 leading-5">Yes</span>
           <input
             type="radio"
             checked={curBool == true}
-            className="radio radio-xs checked:bg-gray-500  mt-1"
-            value="true"
+            className=" shrink-0 h-[1.2rem] w-[1.2rem] cursor-pointer appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]"
+            value={"true"}
             {...fieldContexts!.register(registerLabel as string, options)}
-            onChange={(e) => {
+            onChange={() => {
               setCurBool(true);
-              updateStateVar(e, registerLabel);
+              updateStateVar(true, registerLabel);
             }}
           />
         </label>
 
-        <label className="flex cursor-pointer">
-          <span className="text-md mr-2 mb-3 text-gray-700 leading-5">No</span>
+        <label className="flex cursor-pointer text-gray-700 my-auto">
+          <span className="text-md mr-2 leading-5">No</span>
           <input
             type="radio"
             checked={curBool == false}
-            className="radio radio-xs text-gray-700 checked:bg-gray-500 mt-1"
+            className=" shrink-0 h-[1.2rem] w-[1.2rem] cursor-pointer appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]"
             value="false"
             {...fieldContexts!.register(registerLabel as string, options)}
-            onChange={(e) => {
+            onChange={() => {
               setCurBool(false);
-              updateStateVar(e, registerLabel);
+              updateStateVar(false, registerLabel);
             }}
           />
         </label>

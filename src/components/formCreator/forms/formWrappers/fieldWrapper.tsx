@@ -176,7 +176,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           registerLabel={fieldIdentity}
           inputClassAdditions={inputClassName}
           value={fieldValue}
-          updateStateVar={updateVal}
+          updateStateVar={updateValCheckBox}
           isDisabled={isDisabled}
         />
       ),
