@@ -58,7 +58,8 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   }, [watchedFields, isChanged]);
 
   useEffect(() => {
-    reset();
+    clearErrors();
+    // reset();
   }, [fieldData]);
 
   return (
