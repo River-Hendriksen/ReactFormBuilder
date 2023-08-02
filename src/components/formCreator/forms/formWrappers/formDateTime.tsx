@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_blue.css";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
@@ -17,14 +17,16 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
 
+  const [date, setDate] = useState<string | null | undefined>(value);
+
   isDisabled =
     isDisabled ?? formDataContexts?.isDisabled ?? fieldContexts?.isLocked;
 
   const classes = classNames(
-    (inputClassAdditions ?? "") +
+    (isDisabled ? "bg-slate-200 cursor-not-allowed " : "bg-transparent ") +
       " " +
-      (isDisabled ? "bg-slate-200 cursor-not-allowed " : "bg-transparent ") +
-      "block border px-5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 "
+      (inputClassAdditions ??
+        "block border px-5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ")
   );
 
   return (
@@ -35,6 +37,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
         onChange={(e: Date[]) =>
           updateStateVar && updateStateVar(registerLabel, e[0])
         }
+        placeholder="Select Date..."
         options={{
           enableTime: true,
           time_24hr: true,
@@ -48,7 +51,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
             );
           },
         }}
-        value={(value && new Date(value)) ?? ""}
+        value={(date && new Date(date)) ?? ""}
         disabled={isDisabled}
       ></Flatpickr>
     </ContextCheck>
