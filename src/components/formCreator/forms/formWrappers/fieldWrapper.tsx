@@ -98,7 +98,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   };
 
   const updateDateTimePicker = (fieldName: string, timepoint: Date) => {
-    const timeString = timepoint.toString();
+    const timeString = timepoint?.toString();
     formDataContexts?.setFormData(fieldName, timeString);
     fieldContexts?.setValue(fieldName, timeString);
   };

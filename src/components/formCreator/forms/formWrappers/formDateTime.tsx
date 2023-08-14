@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_blue.css";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
@@ -18,6 +18,10 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
   const formDataContexts = React.useContext(FormDataContexts);
 
   const [date, setDate] = useState<string | null | undefined>(value);
+
+  useEffect(() => {
+    setDate(value);
+  }, [value]);
 
   isDisabled =
     isDisabled ?? formDataContexts?.isDisabled ?? fieldContexts?.isLocked;

@@ -31,7 +31,7 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
 
   useEffect(() => {
     _setFormData(data);
-  }, [data, schemaData]);
+  }, [data]);
 
   return (
     <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
