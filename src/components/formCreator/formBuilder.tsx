@@ -59,7 +59,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
 
   useEffect(() => {
     clearErrors();
-    // reset();
+    reset();
   }, [fieldData]);
 
   return (
