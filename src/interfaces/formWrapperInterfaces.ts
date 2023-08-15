@@ -50,6 +50,11 @@ export interface FieldWrapperPropsType {
   errorClassName?: string;
   likertLabels?: LikertLabelProps;
   badgeTextAppend?: string;
+  datepickerOptions?: any;
+}
+
+export interface datepickerOptions {
+  dateOnly?: boolean;
 }
 
 export interface LikertLabelProps {

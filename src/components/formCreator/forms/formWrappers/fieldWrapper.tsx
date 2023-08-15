@@ -88,6 +88,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   errorClassName,
   likertLabels,
   badgeTextAppend,
+  datepickerOptions,
 }) => {
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
@@ -197,6 +198,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           updateStateVar={updateDateTimePicker}
           inputClassAdditions={inputClassName}
           isDisabled={isDisabled}
+          datepickerOptions={datepickerOptions}
         />
       ),
       checkboxArray: userOptions ? (

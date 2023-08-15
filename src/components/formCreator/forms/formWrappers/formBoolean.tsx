@@ -23,7 +23,7 @@ export const FormBoolean: React.FC<BooleanProps> = ({
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <div className={classes}>
-        <label className="flex cursor-pointer my-auto mr-5">
+        <label className="flex cursor-pointer my-auto mr-5 justify-end">
           <span className="text-md mr-2  text-gray-700 leading-5">Yes</span>
           <input
             type="radio"
@@ -38,7 +38,7 @@ export const FormBoolean: React.FC<BooleanProps> = ({
           />
         </label>
 
-        <label className="flex cursor-pointer text-gray-700 my-auto">
+        <label className="flex cursor-pointer text-gray-700 my-auto justify-start">
           <span className="text-md mr-2 leading-5">No</span>
           <input
             type="radio"

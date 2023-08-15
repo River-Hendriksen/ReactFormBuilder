@@ -12,6 +12,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
   value,
   inputClassAdditions,
   isDisabled,
+  datepickerOptions,
   updateStateVar,
 }) => {
   const fieldContexts = React.useContext(FieldContexts);
@@ -43,9 +44,9 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
         }
         placeholder="Select Date..."
         options={{
-          enableTime: true,
+          enableTime: datepickerOptions?.dateOnly ?? true,
           time_24hr: true,
-          dateFormat: "m/d/Y H:i",
+          dateFormat: datepickerOptions?.dateOnly ? "m/d/Y" : "m/d/Y H:i",
           enableSeconds: false,
           onReady: function (dObj, dStr, fp, dayElem) {
             //run on start to set the yup schema default value

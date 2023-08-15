@@ -2,7 +2,7 @@ import { ChangeEventHandler } from "react";
 import { RegisterOptions } from "react-hook-form";
 import { FormBuilderProps } from "./formGenerationInterfaces";
 import { yupFormBuilderProps } from "./yupSchemaInterfaces";
-import { LikertLabelProps } from "./formWrapperInterfaces";
+import { LikertLabelProps, datepickerOptions } from "./formWrapperInterfaces";
 
 export interface AnyObject {
   [name: string]: any;
@@ -67,6 +67,7 @@ export interface DateTimeProps {
   options?: RegisterOptions;
   inputClassAdditions?: string;
   isDisabled?: boolean;
+  datepickerOptions?: datepickerOptions;
   updateStateVar?: (fieldName: string, timepoint: Date) => void | undefined;
 }
 
