@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { BooleanProps } from "../../../../interfaces/sharedInterfaces";
 import classNames from "classnames";
@@ -15,6 +15,10 @@ export const FormBoolean: React.FC<BooleanProps> = ({
   const [curBool, setCurBool] = useState<boolean | undefined>(
     value != null ? value == true : undefined
   );
+
+  useEffect(() => {
+    setCurBool(value != null ? value == true : undefined);
+  }, [value]);
 
   const classes = classNames(
     inputClassAdditions ?? "ml-4 w-1/2 grid grid-cols-2 gap-3"

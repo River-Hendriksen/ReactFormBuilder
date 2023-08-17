@@ -44,7 +44,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
         }
         placeholder="Select Date..."
         options={{
-          enableTime: datepickerOptions?.dateOnly ?? true,
+          enableTime: !datepickerOptions?.dateOnly ?? true,
           time_24hr: true,
           dateFormat: datepickerOptions?.dateOnly ? "m/d/Y" : "m/d/Y H:i",
           enableSeconds: false,

@@ -20,6 +20,7 @@ import { CheckBoxArrayObjectValueProps } from "../../../../interfaces/sharedInte
 import { FormCheckBoxArray } from "./formCheckBoxArray";
 import { FormLikert } from "./formLikert";
 import { FormBadge } from "./formBadge";
+import { isEmpty } from "../../../../utils/helpers";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   htmlFor,
@@ -93,9 +94,17 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
 
-  const updateVal = (e: any, formField: string) => {
+  const updateEventVal = (e: any, formField: string) => {
+    let value = e.target.value;
+    value = isEmpty(value) ? null : value;
     fieldContexts?.setValue(formField, e.target.value);
     formDataContexts?.setFormData(formField, e.target.value);
+  };
+
+  const updateVal = (e: any, formField: string) => {
+    e = isEmpty(e) ? null : e;
+    fieldContexts?.setValue(formField, e);
+    formDataContexts?.setFormData(formField, e);
   };
 
   const updateDateTimePicker = (fieldName: string, timepoint: Date) => {
@@ -134,7 +143,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           id={fieldIdentity}
           registerLabel={fieldIdentity}
           value={fieldValue}
-          updateStateVar={(e: any) => updateVal(e, fieldIdentity)}
+          updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
           inputClassAdditions={inputClassName}
           maxLength={maxLength}
           isDisabled={isDisabled}
@@ -145,7 +154,9 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           id={fieldIdentity}
           registerLabel={fieldIdentity}
           value={fieldValue}
-          updateStateVar={(e: any) => updateVal(e, fieldIdentity)}
+          updateStateVar={(e: any) =>
+            updateVal(e.target.value as number, fieldIdentity)
+          }
           isDisabled={isDisabled}
         />
       ),
@@ -158,7 +169,9 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           options={options}
           classOverwrite={classOverwrite}
           isDisabled={isDisabled}
-          updateStateVar={(e: any) => updateVal(e, fieldIdentity)}
+          updateStateVar={(e: any) =>
+            updateVal(e.target.value as number, fieldIdentity)
+          }
         />
       ) : null,
       text: (
@@ -167,7 +180,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           registerLabel={fieldIdentity}
           value={fieldValue}
           inputClassAdditions={inputClassName}
-          updateStateVar={(e: any) => updateVal(e, fieldIdentity)}
+          updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
           isDisabled={isDisabled}
         />
       ),

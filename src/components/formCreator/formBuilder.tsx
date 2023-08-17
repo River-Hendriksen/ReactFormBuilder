@@ -8,6 +8,7 @@ import { yupGeneration } from "../yupSchemaCreator/yupSchemaGenerator";
 import { FieldContexts } from "./forms/fieldContexts";
 import classNames from "classnames";
 import { isEmpty } from "../../utils/helpers";
+import { FormDataContexts } from "./forms/formDataContext";
 
 const ruleSetter = (validationSchema?: any) => {
   return validationSchema
@@ -48,6 +49,15 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
 
   //changes when values are set on the form
   const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [formData, _setFormData] = useState<any>(fieldData);
+
+  const setFormData = (key: string, value: any) => {
+    _setFormData({ ...formData, [key]: value });
+  };
+
+  useEffect(() => {
+    _setFormData(fieldData);
+  }, [fieldData]);
 
   const watchedFields = watchFields ? watch(watchFields) : watch();
   const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
@@ -79,10 +89,12 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
         clearErrors: clearErrors,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className={classes}>
-        <FormFieldGenerator schema={schema.formSchema} data={fieldData} />
-        {children}
-      </form>
+      <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes}>
+          <FormFieldGenerator schema={schema.formSchema} />
+          {children}
+        </form>
+      </FormDataContexts.Provider>
     </FieldContexts.Provider>
   );
 };

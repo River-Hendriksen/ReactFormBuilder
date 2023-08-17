@@ -61,5 +61,4 @@ export interface CompleteFormProps {
 
 export interface FormFieldGeneratorProps {
   schema: FormBuilderProps;
-  data: any;
 }
