@@ -97,8 +97,8 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   const updateEventVal = (e: any, formField: string) => {
     let value = e.target.value;
     value = isEmpty(value) ? null : value;
-    fieldContexts?.setValue(formField, e.target.value);
-    formDataContexts?.setFormData(formField, e.target.value);
+    fieldContexts?.setValue(formField, value);
+    formDataContexts?.setFormData(formField, value);
   };
 
   const updateVal = (e: any, formField: string) => {

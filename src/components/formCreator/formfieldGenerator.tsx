@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { FormFieldGeneratorProps } from "../../interfaces/formGenerationInterfaces";
-import { FormDataContexts } from "./forms/formDataContext";
 import React from "react";
 import { shouldRenderChildren } from "./formfieldCreationHelpers/shouldRenderChildren";
 import { Field } from "./formfieldCreationHelpers/field";
@@ -10,9 +8,8 @@ import { FieldChildWrapper } from "./forms/formWrappers/fieldWrapper";
 
 export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
   schema,
+  data,
 }) => {
-  const formDataContexts = useContext(FormDataContexts);
-
   return (
     <>
       {schema.properties.map((cluster, idx) => (
@@ -26,24 +23,23 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
                 key={`React.Fragment.cluster.child.fields${idcf}${key}`}
               >
                 <Field field={field ?? {}} identifier={key} />
-                {shouldRenderChildren(field, formDataContexts?.formData) &&
-                  field?.children && (
-                    <FieldChildWrapper
-                      wrapperClassName={field.childrenWrapperClassName}
-                    >
-                      <RecursiveChildren
-                        children={field.children}
-                        formData={formDataContexts?.formData}
-                        key={`FormFieldGenerator.cluster.child.${idcf}.${key}`}
-                      />
-                    </FieldChildWrapper>
-                  )}
+                {shouldRenderChildren(field, data) && field?.children && (
+                  <FieldChildWrapper
+                    wrapperClassName={field.childrenWrapperClassName}
+                  >
+                    <RecursiveChildren
+                      children={field.children}
+                      formData={data}
+                      key={`FormFieldGenerator.cluster.child.${idcf}.${key}`}
+                    />
+                  </FieldChildWrapper>
+                )}
               </React.Fragment>
             ))}
           {cluster.children && (
             <RecursiveCluster
               children={cluster.children}
-              formData={formDataContexts?.formData}
+              formData={data}
               key={`FormFieldGenerator.cluster.children.${idx}`}
             />
           )}

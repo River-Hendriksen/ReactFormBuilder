@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { ValidationMode, useForm } from "react-hook-form";
 import { FormFieldGenerator } from "./formfieldGenerator";
 
-import { SchemaFormBuilderProps } from "../../interfaces/formGenerationInterfaces";
+import {
+  FormBuilderProps,
+  SchemaFormBuilderProps,
+} from "../../interfaces/formGenerationInterfaces";
 import { yupGeneration } from "../yupSchemaCreator/yupSchemaGenerator";
 import { FieldContexts } from "./forms/fieldContexts";
 import classNames from "classnames";
@@ -47,20 +50,28 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
     ruleSetter(schema.yupSchema ? yupGeneration(schema.yupSchema) : undefined)
   );
 
+  const watchedFields = watchFields ? watch(watchFields) : watch();
+  const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
+
   //changes when values are set on the form
   const [isChanged, setIsChanged] = useState<boolean>(false);
   const [formData, _setFormData] = useState<any>(fieldData);
+
+  //have to make this a state because otherwise there is a race condition with formdata
+  //could maybe combine this with formData but meh
+  const [schemaData, setSchema] = useState<FormBuilderProps>(schema.formSchema);
 
   const setFormData = (key: string, value: any) => {
     _setFormData({ ...formData, [key]: value });
   };
 
   useEffect(() => {
+    setSchema(schema.formSchema);
+  }, [schema]);
+
+  useEffect(() => {
     _setFormData(fieldData);
   }, [fieldData]);
-
-  const watchedFields = watchFields ? watch(watchFields) : watch();
-  const classes = classNames(formClass ?? " pb-10 md:py-10 mt-2 md:px-10");
 
   // Callback version of watch.  It's your responsibility to unsubscribe when done.
   useEffect(() => {
@@ -68,6 +79,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   }, [watchedFields, isChanged]);
 
   useEffect(() => {
+    _setFormData(fieldData);
     clearErrors();
     reset();
   }, [fieldData]);
@@ -91,7 +103,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
     >
       <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
         <form onSubmit={handleSubmit(onSubmit)} className={classes}>
-          <FormFieldGenerator schema={schema.formSchema} />
+          <FormFieldGenerator data={formData} schema={schemaData} />
           {children}
         </form>
       </FormDataContexts.Provider>
