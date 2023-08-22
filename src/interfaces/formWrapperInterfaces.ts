@@ -51,6 +51,12 @@ export interface FieldWrapperPropsType {
   likertLabels?: LikertLabelProps;
   badgeTextAppend?: string;
   datepickerOptions?: any;
+  inputOptions?: InputOptions;
+}
+
+export interface InputOptions {
+  DisableCopy?: boolean;
+  DisablePaste?: boolean;
 }
 
 export interface datepickerOptions {

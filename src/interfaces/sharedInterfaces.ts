@@ -2,7 +2,11 @@ import { ChangeEventHandler } from "react";
 import { RegisterOptions } from "react-hook-form";
 import { FormBuilderProps } from "./formGenerationInterfaces";
 import { yupFormBuilderProps } from "./yupSchemaInterfaces";
-import { LikertLabelProps, datepickerOptions } from "./formWrapperInterfaces";
+import {
+  InputOptions,
+  LikertLabelProps,
+  datepickerOptions,
+} from "./formWrapperInterfaces";
 
 export interface AnyObject {
   [name: string]: any;
@@ -79,6 +83,7 @@ export interface InputProps {
   options?: RegisterOptions;
   maxLength?: number;
   inputClassAdditions?: string;
+  inputOptions?: InputOptions;
   updateStateVar?:
     | ChangeEventHandler<HTMLInputElement>
     | ChangeEventHandler<HTMLTextAreaElement>

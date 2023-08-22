@@ -90,6 +90,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   likertLabels,
   badgeTextAppend,
   datepickerOptions,
+  inputOptions,
 }) => {
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
@@ -147,6 +148,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           inputClassAdditions={inputClassName}
           maxLength={maxLength}
           isDisabled={isDisabled}
+          inputOptions={inputOptions}
         />
       ),
       numberInput: (

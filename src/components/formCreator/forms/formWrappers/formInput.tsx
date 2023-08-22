@@ -13,6 +13,7 @@ export const FormInput: React.FC<InputProps> = ({
   maxLength,
   isDisabled,
   inputClassAdditions,
+  inputOptions,
   updateStateVar,
 }) => {
   const fieldContexts = React.useContext(FieldContexts);
@@ -32,6 +33,21 @@ export const FormInput: React.FC<InputProps> = ({
     <ContextCheck fieldContexts={fieldContexts}>
       <input
         id={id ?? ""}
+        {...inputOptions}
+        onPaste={(e) => {
+          if (inputOptions?.DisableCopy) {
+            e.preventDefault();
+            return false;
+          }
+          return e;
+        }}
+        onCopy={(e) => {
+          if (inputOptions?.DisablePaste) {
+            e.preventDefault();
+            return false;
+          }
+          return e;
+        }}
         disabled={isDisabled}
         className={classes}
         type="text"
