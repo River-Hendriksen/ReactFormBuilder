@@ -4,6 +4,38 @@ import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { FormDataContexts } from "../formDataContext";
 import { InputProps } from "../../../../interfaces/sharedInterfaces";
 import classNames from "classnames";
+import {
+  InputOptions,
+  InputValidOptions,
+} from "../../../../interfaces/formWrapperInterfaces";
+
+const inputOptionMapper = (inputOptions?: InputOptions) => {
+  if (!inputOptions) return {};
+  // Filter out properties that are not valid for input elements
+  const validInputOptions: InputValidOptions = {};
+
+  for (const key in inputOptions) {
+    if (key === "DisableCopy" || key === "DisablePaste") {
+      validInputOptions.onCopy = (e: any) => {
+        if (inputOptions?.DisableCopy) {
+          e.preventDefault();
+          return false;
+        }
+        return e;
+      };
+    }
+    if (key === "DisablePaste") {
+      validInputOptions.onPaste = (e: any) => {
+        if (inputOptions?.DisablePaste) {
+          e.preventDefault();
+          return false;
+        }
+        return e;
+      };
+    }
+  }
+  return validInputOptions;
+};
 
 export const FormInput: React.FC<InputProps> = ({
   id,
@@ -33,7 +65,7 @@ export const FormInput: React.FC<InputProps> = ({
     <ContextCheck fieldContexts={fieldContexts}>
       <input
         id={id ?? ""}
-        {...inputOptions}
+        {...inputOptionMapper(inputOptions)}
         onPaste={(e) => {
           if (inputOptions?.DisableCopy) {
             e.preventDefault();

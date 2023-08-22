@@ -59,6 +59,11 @@ export interface InputOptions {
   DisablePaste?: boolean;
 }
 
+export interface InputValidOptions {
+  onCopy?: (e: any) => any;
+  onPaste?: (e: any) => any;
+}
+
 export interface datepickerOptions {
   dateOnly?: boolean;
 }
