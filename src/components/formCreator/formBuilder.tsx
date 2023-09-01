@@ -67,11 +67,8 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
 
   useEffect(() => {
     setSchema(schema.formSchema);
+    reset();
   }, [schema]);
-
-  useEffect(() => {
-    _setFormData(fieldData);
-  }, [fieldData]);
 
   // Callback version of watch.  It's your responsibility to unsubscribe when done.
   useEffect(() => {
@@ -81,7 +78,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   useEffect(() => {
     _setFormData(fieldData);
     clearErrors();
-    reset();
+    // reset();
   }, [fieldData]);
 
   return (
