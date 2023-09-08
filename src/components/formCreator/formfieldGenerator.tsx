@@ -1,6 +1,9 @@
 import { FormFieldGeneratorProps } from "../../interfaces/formGenerationInterfaces";
 import React from "react";
-import { shouldRenderChildren } from "./formfieldCreationHelpers/shouldRenderChildren";
+import {
+  ConditionalFields,
+  shouldRenderChildren,
+} from "./formfieldCreationHelpers/shouldRenderChildren";
 import { Field } from "./formfieldCreationHelpers/field";
 import { RecursiveChildren } from "./formfieldCreationHelpers/recursiveChildren";
 import { RecursiveCluster } from "./formfieldCreationHelpers/recursiveCluster";
@@ -23,6 +26,12 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
                 key={`React.Fragment.cluster.child.fields${idcf}${key}`}
               >
                 <Field field={field ?? {}} identifier={key} />
+                {field.conditionalChildren && (
+                  <ConditionalFields
+                    conditionalField={field.conditionalChildren}
+                    data={data}
+                  />
+                )}
                 {shouldRenderChildren(field, data) && field?.children && (
                   <FieldChildWrapper
                     wrapperClassName={field.childrenWrapperClassName}

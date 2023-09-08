@@ -1,6 +1,9 @@
 import React from "react";
 import { FormProp } from "../../../interfaces/formGenerationInterfaces";
-import { shouldRenderChildren } from "./shouldRenderChildren";
+import {
+  ConditionalFields,
+  shouldRenderChildren,
+} from "./shouldRenderChildren";
 import { Field } from "./field";
 import { FieldChildWrapper } from "../forms/formWrappers/fieldWrapper";
 
@@ -19,6 +22,12 @@ export const RecursiveChildren = ({
             key={`Rescursive.React.Fragment.Children.Field${idx}${key}`}
           >
             <Field field={field} identifier={key} />
+            {field.conditionalChildren && (
+              <ConditionalFields
+                conditionalField={field.conditionalChildren}
+                data={formData}
+              />
+            )}
             {shouldRenderChildren(field, formData) && field.children && (
               <FieldChildWrapper
                 wrapperClassName={field.childrenWrapperClassName}

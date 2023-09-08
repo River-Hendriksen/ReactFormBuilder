@@ -33,11 +33,18 @@ export interface FormProperties {
   childrenWrapperClassName?: string;
   isLabelLeft?: boolean;
   conditionallyShowChildren?: ConditionallyShowChildren[];
+  conditionalChildren?: ConditionalChildren[];
   wrapperClassName?: string;
   userOptions?: SelectOptions[];
 }
 
-interface ConditionallyShowChildren {
+export interface ConditionalChildren {
+  conditions: ConditionallyShowChildren[];
+  wrapperClassName?: string;
+  children?: FormProp;
+}
+
+export interface ConditionallyShowChildren {
   formField: string;
   fieldToCompare?: string;
   conditionValue?: string | number | boolean;
@@ -61,5 +68,10 @@ export interface CompleteFormProps {
 
 export interface FormFieldGeneratorProps {
   schema: FormBuilderProps;
+  data: any;
+}
+
+export interface ConditionalChildrenProps {
+  conditionalField: ConditionalChildren[];
   data: any;
 }
