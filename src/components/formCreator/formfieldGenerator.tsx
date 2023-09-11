@@ -30,6 +30,7 @@ export const FormFieldGenerator: React.FC<FormFieldGeneratorProps> = ({
                   <ConditionalFields
                     conditionalField={field.conditionalChildren}
                     data={data}
+                    key={`FormFieldGenerator.cluster.parent.conditionalFields.child.${idcf}.${key}`}
                   />
                 )}
                 {shouldRenderChildren(field, data) && field?.children && (

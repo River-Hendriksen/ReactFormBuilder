@@ -53,7 +53,10 @@ export const ConditionalFields: React.FC<ConditionalChildrenProps> = ({
         return (
           shouldRenderSubChildren(field.conditions, data) &&
           field?.children && (
-            <FieldChildWrapper wrapperClassName={field.wrapperClassName}>
+            <FieldChildWrapper
+              wrapperClassName={field.wrapperClassName}
+              key={`FormFieldGenerator.cluster.conditionalFields.child.FieldChildWrapper.${idcf}`}
+            >
               <RecursiveChildren
                 children={field.children}
                 formData={data}

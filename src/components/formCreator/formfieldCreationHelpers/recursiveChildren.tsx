@@ -26,6 +26,7 @@ export const RecursiveChildren = ({
               <ConditionalFields
                 conditionalField={field.conditionalChildren}
                 data={formData}
+                key={`Rescursive.conditionalFields.child.${idx}.${key}`}
               />
             )}
             {shouldRenderChildren(field, formData) && field.children && (

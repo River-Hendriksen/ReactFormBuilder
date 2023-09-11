@@ -33,7 +33,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
       (inputClassAdditions ??
         "block border px-5 pb-2.5 pt-4 w-full text-sm text-gray-900  rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ")
   );
-
+  const currentDate = new Date();
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <Flatpickr
@@ -48,6 +48,9 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
           time_24hr: true,
           dateFormat: datepickerOptions?.dateOnly ? "m/d/Y" : "m/d/Y H:i",
           enableSeconds: false,
+          defaultDate: currentDate,
+          defaultHour: currentDate.getHours(),
+          defaultMinute: currentDate.getMinutes(),
           onReady: function (dObj, dStr, fp, dayElem) {
             //run on start to set the yup schema default value
             fieldContexts!.setValue(
