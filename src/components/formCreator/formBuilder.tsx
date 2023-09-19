@@ -77,6 +77,13 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
 
   useEffect(() => {
     _setFormData(fieldData);
+    if (fieldData) {
+      Object.entries(fieldData).forEach(([name, value]: any) => {
+        if (getValues(name) !== value) {
+          setValue(name, value);
+        }
+      });
+    }
     clearErrors();
     // reset();
   }, [fieldData]);

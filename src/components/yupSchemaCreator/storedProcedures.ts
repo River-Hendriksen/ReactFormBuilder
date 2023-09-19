@@ -12,10 +12,15 @@ export const storedProcedures = (
   functionArguements: yupFormStoredProcedureArguementProps
 ) => {
   switch (validationType) {
+    case "isNumber":
+      return (variable: any) =>
+        new RegExp(/^-?[0-9]\d*(\.\d+)?$/).test(variable);
     case "today":
       return new Date();
     case "transformNumber":
       return (_: any, val: any) => (val ? Number(val) : null);
+    case "isNotNull":
+      return (vars: any) => vars != null;
     case "whenChecked":
       return (checkVar: boolean) => checkVar;
     case "whenNotChecked":

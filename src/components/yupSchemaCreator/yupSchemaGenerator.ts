@@ -23,7 +23,7 @@ export const whenGeneration = (
 ) => {
   const { comparatorVariable, is, then, otherwise } = params[0];
   // create an object with the required when params
-  let whenParams = { is: is, then: {} } as whenValidationProps;
+  let whenParams = { is: is, then: {}, otherwise: {} } as whenValidationProps;
   whenParams.is =
     is && instanceOfyupFormStoredProcedure(is)
       ? storedProcedures(is.functionName, is.functionArguements)
@@ -32,20 +32,25 @@ export const whenGeneration = (
   whenParams.then = (schema: any) => {
     let thenValidator = schema;
     then?.map((thenParams: validationRequirementProps) => {
-      const { type, params } = thenParams;
       let tmpValidator = yupArgCreator(thenParams, schema, parentType);
       if (tmpValidator) {
-        thenValidator = tmpValidator;
+        thenValidator = thenValidator.concat(tmpValidator);
       }
     });
     return thenValidator;
   };
 
   // if there is an otherwise param, add it to the whenParams object
-  if (otherwise) {
-    whenParams.otherwise = (schema: any) =>
-      schema[otherwise[0].type](...otherwise[0].params);
-  }
+  whenParams.otherwise = (schema: any) => {
+    let otherwiseValidator = schema;
+    otherwise?.map((otherwiseParams: validationRequirementProps) => {
+      let tmpValidator = yupArgCreator(otherwiseParams, schema, parentType);
+      if (tmpValidator) {
+        otherwiseValidator = otherwiseValidator.concat(tmpValidator);
+      }
+    });
+    return otherwiseValidator;
+  };
 
   // return the validator with the when key and the whenParams object
   return validator["when" as keyof typeof validator](
@@ -91,7 +96,7 @@ export function yupArgCreator(
     return whenGeneration(validator, params, parentType);
   } else {
     // if type is not when, return the validator with the type key and the params array
-    return validator[type as keyof typeof validator](...params);
+    return validator[type as keyof typeof validator](...(params ?? []));
   }
 }
 
