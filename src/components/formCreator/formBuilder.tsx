@@ -78,8 +78,19 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   useEffect(() => {
     _setFormData(fieldData);
     if (fieldData) {
+      //set the values of the form to the values of the fieldData
       Object.entries(fieldData).forEach(([name, value]: any) => {
-        if (getValues(name) !== value) {
+        const existingValue = getValues(name);
+
+        //if the value is undefined and the existing value is undefined or null, don't set it
+        if (existingValue == undefined && (value == undefined || value == null))
+          return;
+
+        //if the existing value is undefined and the value is not, set it or if the existing value is not equal to the value, set it
+        if (
+          existingValue !== value &&
+          (existingValue !== undefined || value !== undefined)
+        ) {
           setValue(name, value);
         }
       });
