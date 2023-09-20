@@ -6,6 +6,10 @@ export const storedProceduresFlat = {
   whenNotChecked: (checkVar: boolean) => !checkVar,
 };
 
+const decimalRegex = (numberOfDecimals: string) => {
+  return new RegExp("^-?[0-9]*\\.?[0-9]{0," + numberOfDecimals + "}$");
+};
+
 //switch statement to determine which validation function to use
 export const storedProcedures = (
   validationType: string,
@@ -15,6 +19,9 @@ export const storedProcedures = (
     case "isNumber":
       return (variable: any) =>
         new RegExp(/^-?[0-9]\d*(\.\d+)?$/).test(variable);
+    case "limitDecimalsTo":
+      return (variable: any) =>
+        decimalRegex(functionArguements.decimals).test(variable);
     case "today":
       return new Date();
     case "transformNumber":
