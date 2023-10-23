@@ -80,6 +80,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   wrapperClassName,
   labelClassName,
   inputClassName,
+  inputClassOverrides,
   options,
   classOverwrite,
   isLabelLeft,
@@ -146,6 +147,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           value={fieldValue}
           updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
           inputClassAdditions={inputClassName}
+          inputClassOverrides={inputClassOverrides}
           maxLength={maxLength}
           isDisabled={isDisabled}
           inputOptions={inputOptions}

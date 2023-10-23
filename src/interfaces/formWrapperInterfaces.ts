@@ -42,6 +42,7 @@ export interface FieldWrapperPropsType {
   userOptions?: SelectOptions[];
   wrapperClassName?: string;
   inputClassName?: string;
+  inputClassOverrides?: string;
   options?: RegisterOptions;
   classOverwrite?: string;
   labelClassName?: string;
