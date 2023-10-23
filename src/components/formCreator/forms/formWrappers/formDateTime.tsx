@@ -5,6 +5,13 @@ import { ContextCheck, FieldContexts } from "../fieldContexts";
 import { FormDataContexts } from "../formDataContext";
 import { DateTimeProps } from "../../../../interfaces/sharedInterfaces";
 import classNames from "classnames";
+import { DatepickerOptions } from "../../../../interfaces/formWrapperInterfaces";
+
+const timeFormat = (datepickerOptions: DatepickerOptions | undefined) => {
+  if (datepickerOptions?.timeFormat) return datepickerOptions?.timeFormat;
+  else if (datepickerOptions?.dateOnly) return "m/d/Y";
+  else return "m/d/Y H:i";
+};
 
 export const FormDateTime: React.FC<DateTimeProps> = ({
   registerLabel,
@@ -46,7 +53,7 @@ export const FormDateTime: React.FC<DateTimeProps> = ({
         options={{
           enableTime: !datepickerOptions?.dateOnly ?? true,
           time_24hr: true,
-          dateFormat: datepickerOptions?.dateOnly ? "m/d/Y" : "m/d/Y H:i",
+          dateFormat: timeFormat(datepickerOptions),
           enableSeconds: false,
           defaultDate: currentDate,
           defaultHour: currentDate.getHours(),

@@ -50,7 +50,7 @@ export interface FieldWrapperPropsType {
   errorClassName?: string;
   likertLabels?: LikertLabelProps;
   badgeTextAppend?: string;
-  datepickerOptions?: any;
+  datepickerOptions?: DatepickerOptions;
   inputOptions?: InputOptions;
 }
 
@@ -64,8 +64,9 @@ export interface InputValidOptions {
   onPaste?: (e: any) => any;
 }
 
-export interface datepickerOptions {
+export interface DatepickerOptions {
   dateOnly?: boolean;
+  timeFormat?: string;
 }
 
 export interface LikertLabelProps {

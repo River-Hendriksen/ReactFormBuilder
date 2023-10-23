@@ -51,6 +51,7 @@ export interface ConditionallyShowChildren {
 }
 
 export interface SchemaFormBuilderProps {
+  priorChildren?: React.ReactNode;
   children?: React.ReactNode;
   isLocked: boolean;
   watchFields?: string[];

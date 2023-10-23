@@ -5,7 +5,7 @@ import { yupFormBuilderProps } from "./yupSchemaInterfaces";
 import {
   InputOptions,
   LikertLabelProps,
-  datepickerOptions,
+  DatepickerOptions,
 } from "./formWrapperInterfaces";
 
 export interface AnyObject {
@@ -71,7 +71,7 @@ export interface DateTimeProps {
   options?: RegisterOptions;
   inputClassAdditions?: string;
   isDisabled?: boolean;
-  datepickerOptions?: datepickerOptions;
+  datepickerOptions?: DatepickerOptions;
   updateStateVar?: (fieldName: string, timepoint: Date) => void | undefined;
 }
 

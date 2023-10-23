@@ -25,6 +25,7 @@ const ruleSetter = (validationSchema?: any) => {
 };
 
 export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
+  priorChildren,
   children,
   schema,
   isLocked,
@@ -118,6 +119,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
     >
       <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
         <form onSubmit={handleSubmit(onSubmit)} className={classes}>
+          {priorChildren}
           <FormFieldGenerator data={formData} schema={schemaData} />
           {children}
         </form>
