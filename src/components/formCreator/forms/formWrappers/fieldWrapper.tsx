@@ -157,6 +157,8 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
         <FormInputNumber
           id={fieldIdentity}
           registerLabel={fieldIdentity}
+          inputClassAdditions={inputClassName}
+          inputClassOverrides={inputClassOverrides}
           value={fieldValue}
           updateStateVar={(e: any) =>
             updateVal(e.target.value as number, fieldIdentity)
