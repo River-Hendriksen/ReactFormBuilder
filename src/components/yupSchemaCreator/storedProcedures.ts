@@ -19,6 +19,11 @@ export const storedProcedures = (
     case "isNumber":
       return (variable: any) =>
         new RegExp(/^-?[0-9]\d*(\.\d+)?$/).test(variable);
+    case "isPhoneNumber":
+      return (variable: any) =>
+        new RegExp(
+          /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/
+        ).test(variable);
     case "limitDecimalsTo":
       return (variable: any) =>
         decimalRegex(functionArguements.decimals).test(variable);
