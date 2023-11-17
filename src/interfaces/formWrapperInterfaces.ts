@@ -35,6 +35,8 @@ export interface FieldWrapperProps extends FieldWrapperPropsBase {
 export interface FieldWrapperPropsType {
   fieldIdentity: string;
   isDisabled?: boolean;
+  disabledClassOverrides?: string;
+  disabledLabelOverrides?: string;
   type: string;
   label?: string;
   maxLength?: number;

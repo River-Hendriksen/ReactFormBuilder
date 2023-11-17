@@ -16,6 +16,8 @@ export interface LabelProps {
   labelContent: string;
   htmlFor?: string;
   labelClassName?: string;
+  disabledLabelOverrides?: string;
+  isdisabled?: boolean;
 }
 
 export interface SelectOptions {
@@ -27,6 +29,7 @@ export interface CheckBoxArrayProps {
   registerLabel: string;
   ddValue: any;
   isDisabled?: boolean;
+  disabledClassOverrides?: string;
   userOptions: SelectOptions[] | null;
   inputClassAdditions?: string;
   classOverwrite?: string;
@@ -47,6 +50,7 @@ export interface DropDownProps {
   registerLabel: string;
   ddValue: any;
   isDisabled?: boolean;
+  disabledClassOverrides?: string;
   userOptions: SelectOptions[] | null;
   inputClassAdditions?: string;
   classOverwrite?: string;
@@ -61,6 +65,7 @@ export interface BooleanProps {
   options?: RegisterOptions;
   inputClassAdditions?: string;
   isDisabled?: boolean;
+  disabledClassOverrides?: string;
   updateStateVar: (e: any, formField: string) => void;
 }
 
@@ -70,6 +75,7 @@ export interface DateTimeProps {
   registerLabel: string;
   options?: RegisterOptions;
   inputClassAdditions?: string;
+  disabledClassOverrides?: string;
   isDisabled?: boolean;
   datepickerOptions?: DatepickerOptions;
   updateStateVar?: (fieldName: string, timepoint: Date) => void | undefined;
@@ -80,6 +86,7 @@ export interface InputProps {
   value?: string | null;
   registerLabel: string;
   isDisabled?: boolean;
+  disabledClassOverrides?: string;
   options?: RegisterOptions;
   maxLength?: number;
   inputClassAdditions?: string;

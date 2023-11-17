@@ -10,6 +10,7 @@ export const FormTextArea: React.FC<InputProps> = ({
   options,
   value,
   isDisabled,
+  inputClassAdditions,
   updateStateVar,
 }) => {
   const fieldContexts = React.useContext(FieldContexts);
@@ -22,7 +23,8 @@ export const FormTextArea: React.FC<InputProps> = ({
     (isDisabled
       ? "!bg-slate-200 !cursor-not-allowed !text-gray-700 "
       : "bg-white ") +
-      "textarea border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 "
+      (inputClassAdditions ?? " ") +
+      " textarea border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 "
   );
 
   return (

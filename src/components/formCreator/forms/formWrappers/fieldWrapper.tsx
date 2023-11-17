@@ -80,6 +80,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   wrapperClassName,
   labelClassName,
   inputClassName,
+  disabledLabelOverrides,
   inputClassOverrides,
   options,
   classOverwrite,
@@ -92,6 +93,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   badgeTextAppend,
   datepickerOptions,
   inputOptions,
+  disabledClassOverrides,
 }) => {
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
@@ -150,6 +152,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           inputClassOverrides={inputClassOverrides}
           maxLength={maxLength}
           isDisabled={isDisabled}
+          disabledClassOverrides={disabledClassOverrides}
           inputOptions={inputOptions}
         />
       ),
@@ -275,6 +278,8 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
             htmlFor={fieldIdentity}
             labelContent={label || ""}
             labelClassName={labelClassName}
+            disabledLabelOverrides={disabledLabelOverrides}
+            isdisabled={isDisabled}
           />
         )}
         {inputType()}
