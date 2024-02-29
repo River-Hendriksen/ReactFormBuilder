@@ -1,11 +1,11 @@
 export const isEmpty = (obj: object) => {
-    return Object.values(obj).every(
-        (x) => x === undefined || x === null || x === ''
-    );
+  return Object.values(obj).every(
+    (x) => x === undefined || x === null || x === ""
+  );
 };
 
 export const instanceOfyupFormStoredProcedure = (object: any) => {
-    return 'functionName' in object;
+  return "functionName" in object;
 };
 
 /**
@@ -15,12 +15,12 @@ export const instanceOfyupFormStoredProcedure = (object: any) => {
  * @returns number of the enum value or null
  */
 export const findEnumFromString = (
-    enumType: any,
-    value: string
+  enumType: any,
+  value: string
 ): number | null => {
-    const keys = Object.keys(enumType).filter(
-        (key) => enumType[key].toString() === value
-    );
-    console.log('keys', keys);
-    return keys.length ? parseInt(keys[0]) : null;
+  const keys = Object.keys(enumType).filter(
+    (key) => enumType[key].toString() === value
+  );
+
+  return keys.length ? parseInt(keys[0]) : null;
 };
