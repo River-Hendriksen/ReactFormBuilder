@@ -48,6 +48,7 @@ export interface ConditionallyShowChildren {
   formField: string;
   fieldToCompare?: string;
   conditionValue?: string | number | boolean;
+  comparisonType?: string;
 }
 
 export interface SchemaFormBuilderProps {
