@@ -34,6 +34,7 @@ export const storedProcedures = (
         ).test(variable);
     case "limitDecimalsTo":
       return (variable: any) =>
+        variable == null ??
         decimalRegex(functionArguements.decimals).test(variable);
     case "today":
       return new Date();

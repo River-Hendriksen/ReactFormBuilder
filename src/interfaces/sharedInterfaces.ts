@@ -91,6 +91,7 @@ export interface InputProps {
   maxLength?: number;
   inputClassAdditions?: string;
   inputClassOverrides?: string;
+  placeHolder?: string;
   inputOptions?: InputOptions;
   updateStateVar?:
     | ChangeEventHandler<HTMLInputElement>

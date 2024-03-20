@@ -94,6 +94,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   datepickerOptions,
   inputOptions,
   disabledClassOverrides,
+  placeHolder,
 }) => {
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
@@ -147,6 +148,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           id={fieldIdentity}
           registerLabel={fieldIdentity}
           value={fieldValue}
+          placeHolder={placeHolder}
           updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
           inputClassAdditions={inputClassName}
           inputClassOverrides={inputClassOverrides}

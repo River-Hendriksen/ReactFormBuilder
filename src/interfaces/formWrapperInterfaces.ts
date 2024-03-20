@@ -55,6 +55,7 @@ export interface FieldWrapperPropsType {
   badgeTextAppend?: string;
   datepickerOptions?: DatepickerOptions;
   inputOptions?: InputOptions;
+  placeHolder?: string;
 }
 
 export interface InputOptions {

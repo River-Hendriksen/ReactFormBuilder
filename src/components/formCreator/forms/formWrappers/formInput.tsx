@@ -42,6 +42,7 @@ export const FormInput: React.FC<InputProps> = ({
   registerLabel,
   options,
   value,
+  placeHolder,
   maxLength,
   isDisabled,
   inputClassAdditions,
@@ -88,6 +89,7 @@ export const FormInput: React.FC<InputProps> = ({
         disabled={isDisabled}
         className={classes}
         type="text"
+        placeholder={placeHolder}
         maxLength={maxLength}
         {...fieldContexts!.register(registerLabel as string, options)}
         defaultValue={value ?? ""}
