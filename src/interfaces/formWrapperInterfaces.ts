@@ -76,6 +76,8 @@ export interface DatepickerOptions {
 export interface LikertLabelProps {
   minLabel?: string;
   maxLabel?: string;
+  likertOptionClass?: string;
+  likertLabelClass?: string;
 }
 
 export interface FieldChildWrapperProps {

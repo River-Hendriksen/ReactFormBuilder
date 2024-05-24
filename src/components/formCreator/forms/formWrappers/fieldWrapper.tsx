@@ -246,7 +246,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           options={options}
           classOverwrite={classOverwrite}
           isDisabled={isDisabled}
-          updateStateVar={updateCheckboxArrayChange}
+          updateStateVar={updateEventVal}
           likertLabels={likertLabels}
         />
       ) : null,

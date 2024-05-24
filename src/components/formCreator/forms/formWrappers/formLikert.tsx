@@ -11,6 +11,7 @@ export const FormLikert: React.FC<LikertProps> = ({
   classOverwrite,
   userOptions,
   likertLabels,
+  updateStateVar,
 }) => {
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
@@ -24,6 +25,10 @@ export const FormLikert: React.FC<LikertProps> = ({
   let isDisabled =
     formDataContexts?.isDisabled ?? fieldContexts?.isLocked ?? false;
 
+  let fieldValue: number | null = formDataContexts?.formData
+    ? formDataContexts?.formData[registerLabel]
+    : null;
+
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <div className={classes}>
@@ -36,26 +41,32 @@ export const FormLikert: React.FC<LikertProps> = ({
           </label>
         )}
         {userOptions?.map((opt, idx) => (
-          <div
+          <label
             key={idx}
-            className="grid grid-rows-2 grid-flow-col items-center mb-5 md:mb-0 md:mr-5"
+            className={
+              likertLabels?.likertOptionClass ??
+              "flex cursor-pointer my-auto mr-5 justify-end"
+            }
           >
+            <span
+              className={
+                likertLabels?.likertLabelClass ??
+                "text-md mr-2 text-gray-700 leading-5"
+              }
+            >
+              {opt.label}
+            </span>
             <input
               type="radio"
               disabled={isDisabled}
-              id={`${registerLabel}-${opt.value.toString()}`}
-              className="radio radio-xs checked:bg-gray-500 m-auto"
+              checked={fieldValue != null && fieldValue == opt.value}
+              // id={`${registerLabel}-${opt.value.toString()}`}
+              className="shrink-0 h-[1.2rem] w-[1.2rem] cursor-pointer appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]"
               value={opt.value}
               {...fieldContexts!.register(registerLabel as string, options)}
+              onChange={(e) => updateStateVar(e, registerLabel)}
             />
-
-            <label
-              htmlFor={`${registerLabel}-${opt.value.toString()}`}
-              className="mt-1 m-auto"
-            >
-              {opt.label}
-            </label>
-          </div>
+          </label>
         ))}
 
         {likertLabels?.maxLabel && (

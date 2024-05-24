@@ -8,8 +8,27 @@ import {
   DatepickerOptions,
 } from "./formWrapperInterfaces";
 
+interface BaseFieldProps {
+  registerLabel: string;
+  isDisabled?: boolean;
+  inputClassAdditions?: string;
+  classOverwrite?: string;
+  options?: RegisterOptions;
+  disabledClassOverrides?: string;
+}
+
+interface UserOptionsBase extends BaseFieldProps {
+  ddValue: any;
+  userOptions: SelectOptions[] | null;
+}
+
 export interface AnyObject {
   [name: string]: any;
+}
+
+export interface SelectOptions {
+  value: number;
+  label: string;
 }
 
 export interface LabelProps {
@@ -20,24 +39,12 @@ export interface LabelProps {
   isdisabled?: boolean;
 }
 
-export interface SelectOptions {
-  value: number;
-  label: string;
-}
-
-export interface CheckBoxArrayProps {
-  registerLabel: string;
-  ddValue: any;
-  isDisabled?: boolean;
-  disabledClassOverrides?: string;
-  userOptions: SelectOptions[] | null;
-  inputClassAdditions?: string;
-  classOverwrite?: string;
+export interface CheckBoxArrayProps extends UserOptionsBase {
   updateStateVar: (e: any, formField: string, idx: number) => void;
-  options?: RegisterOptions;
 }
 
-export interface LikertProps extends CheckBoxArrayProps {
+export interface LikertProps extends UserOptionsBase {
+  updateStateVar: (e: any, formField: string) => void;
   likertLabels?: LikertLabelProps;
 }
 
@@ -46,50 +53,28 @@ export interface CheckBoxArrayObjectValueProps {
   isChecked: boolean;
 }
 
-export interface DropDownProps {
-  registerLabel: string;
-  ddValue: any;
-  isDisabled?: boolean;
-  disabledClassOverrides?: string;
-  userOptions: SelectOptions[] | null;
-  inputClassAdditions?: string;
-  classOverwrite?: string;
+export interface DropDownProps extends UserOptionsBase {
   updateStateVar: ChangeEventHandler<HTMLSelectElement>;
   options?: RegisterOptions;
 }
 
-export interface BooleanProps {
+export interface BooleanProps extends BaseFieldProps {
   id?: string;
   value?: boolean | null;
-  registerLabel: string;
-  options?: RegisterOptions;
-  inputClassAdditions?: string;
-  isDisabled?: boolean;
-  disabledClassOverrides?: string;
   updateStateVar: (e: any, formField: string) => void;
 }
 
-export interface DateTimeProps {
+export interface DateTimeProps extends BaseFieldProps {
   id?: string;
   value?: string | null;
-  registerLabel: string;
-  options?: RegisterOptions;
-  inputClassAdditions?: string;
-  disabledClassOverrides?: string;
-  isDisabled?: boolean;
   datepickerOptions?: DatepickerOptions;
   updateStateVar?: (fieldName: string, timepoint: Date) => void | undefined;
 }
 
-export interface InputProps {
+export interface InputProps extends BaseFieldProps {
   id?: string;
   value?: string | null;
-  registerLabel: string;
-  isDisabled?: boolean;
-  disabledClassOverrides?: string;
-  options?: RegisterOptions;
   maxLength?: number;
-  inputClassAdditions?: string;
   inputClassOverrides?: string;
   placeHolder?: string;
   inputOptions?: InputOptions;
