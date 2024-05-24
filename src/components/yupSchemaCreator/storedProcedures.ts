@@ -2,6 +2,7 @@ import { yupFormStoredProcedureArguementProps } from "../../interfaces/yupSchema
 
 export const storedProceduresFlat = {
   transformNumber: (_: any, val: any) => (val ? Number(val) : null),
+  transformArrayToNumber: (_: any, val: any) => (val ? val.map(Number) : null),
   whenChecked: (checkVar: boolean) => checkVar,
   whenNotChecked: (checkVar: boolean) => !checkVar,
 };
@@ -40,6 +41,10 @@ export const storedProcedures = (
       return new Date();
     case "transformNumber":
       return (_: any, val: any) => (val ? Number(val) : null);
+    case "transformArrayToNumber":
+      return (_: any, val: any) => {
+        return val ? val.map(Number) : null;
+      };
     case "isNotNull":
       return (vars: any) => vars != null;
     case "whenChecked":
@@ -69,6 +74,11 @@ export const storedProcedures = (
             "whenOptionIdIs: whenOptionIdArgIs is not a number or does not exist"
           );
         }
+      };
+    case "arrayIsNumbers":
+      return (arr: any[]) => {
+        if (!Array.isArray(arr)) return false;
+        return arr.every((num) => !isNaN(Number(num)));
       };
     default:
       return null;

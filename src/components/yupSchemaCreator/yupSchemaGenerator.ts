@@ -96,6 +96,12 @@ export function yupArgCreator(
   // if the type is when, and params exists, and the first param is an object, destructure the object
   if (type === "when" && params?.length > 0 && typeof params[0] === "object") {
     return whenGeneration(validator, params, parentType);
+  } else if (
+    type == "of" &&
+    params?.length > 0 &&
+    typeof params[0] === "object"
+  ) {
+    return yupGeneration(params[0]);
   } else {
     // if type is not when, return the validator with the type key and the params array
     return validator[type as keyof typeof validator](...(params ?? []));
