@@ -8,6 +8,7 @@ export const FormLikert: React.FC<LikertProps> = ({
   registerLabel,
   options,
   inputClassAdditions,
+  disabledClassOverrides,
   classOverwrite,
   userOptions,
   likertLabels,
@@ -16,14 +17,18 @@ export const FormLikert: React.FC<LikertProps> = ({
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
 
+  let isDisabled: boolean = !!(
+    formDataContexts?.isDisabled ?? fieldContexts?.isLocked
+  );
+
   const classes = classNames(
     (inputClassAdditions ?? "") +
       " " +
-      (fieldContexts?.isLocked ? "!bg-slate-200 !cursor-not-allowed " : "") +
+      (isDisabled
+        ? disabledClassOverrides ?? "!bg-slate-200 !cursor-not-allowed "
+        : "") +
       (classOverwrite ?? "md:flex items-center justify-center p-4")
   );
-  let isDisabled =
-    formDataContexts?.isDisabled ?? fieldContexts?.isLocked ?? false;
 
   let fieldValue: number | null = formDataContexts?.formData
     ? formDataContexts?.formData[registerLabel]

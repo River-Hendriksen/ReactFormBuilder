@@ -13,9 +13,9 @@ export const FormCheckbox: React.FC<BooleanProps> = ({
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
 
-  let isDisabled =
-    formDataContexts?.isDisabled ?? fieldContexts?.isLocked ?? false;
-
+  let isDisabled: boolean = !!(
+    formDataContexts?.isDisabled ?? fieldContexts?.isLocked
+  );
   let fieldValue = formDataContexts?.formData
     ? formDataContexts?.formData[registerLabel] ?? false
     : false;

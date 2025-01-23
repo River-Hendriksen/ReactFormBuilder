@@ -17,15 +17,16 @@ export const FormTextArea: React.FC<InputProps> = ({
   const fieldContexts = React.useContext(FieldContexts);
   const formDataContexts = React.useContext(FormDataContexts);
 
-  isDisabled =
-    isDisabled ?? formDataContexts?.isDisabled ?? fieldContexts?.isLocked;
-
+  let curisDisabled: boolean = !!(
+    isDisabled ??
+    (formDataContexts?.isDisabled || fieldContexts?.isLocked)
+  );
   var nonOverridedClass =
     (inputClassAdditions ?? " ") +
     " textarea border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ";
 
   const classes = classNames(
-    (isDisabled
+    (curisDisabled
       ? "!bg-slate-200 !cursor-not-allowed !text-gray-700 "
       : "bg-white ") + (inputClassOverrides ?? nonOverridedClass)
   );
@@ -33,7 +34,7 @@ export const FormTextArea: React.FC<InputProps> = ({
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <textarea
-        disabled={isDisabled}
+        disabled={curisDisabled}
         className={classes}
         {...fieldContexts!.register(registerLabel as string, options)}
         value={value ?? ""}
