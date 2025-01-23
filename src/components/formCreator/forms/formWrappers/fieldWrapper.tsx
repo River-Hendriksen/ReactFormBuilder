@@ -190,6 +190,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           id={fieldIdentity}
           registerLabel={fieldIdentity}
           value={fieldValue}
+          inputClassOverrides={inputClassOverrides}
           inputClassAdditions={inputClassName}
           updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
           isDisabled={isDisabled}

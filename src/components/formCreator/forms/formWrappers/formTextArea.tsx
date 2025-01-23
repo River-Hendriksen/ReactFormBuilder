@@ -10,6 +10,7 @@ export const FormTextArea: React.FC<InputProps> = ({
   options,
   value,
   isDisabled,
+  inputClassOverrides,
   inputClassAdditions,
   updateStateVar,
 }) => {
@@ -19,12 +20,14 @@ export const FormTextArea: React.FC<InputProps> = ({
   isDisabled =
     isDisabled ?? formDataContexts?.isDisabled ?? fieldContexts?.isLocked;
 
+  var nonOverridedClass =
+    (inputClassAdditions ?? " ") +
+    " textarea border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ";
+
   const classes = classNames(
     (isDisabled
       ? "!bg-slate-200 !cursor-not-allowed !text-gray-700 "
-      : "bg-white ") +
-      (inputClassAdditions ?? " ") +
-      " textarea border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 "
+      : "bg-white ") + (inputClassOverrides ?? nonOverridedClass)
   );
 
   return (

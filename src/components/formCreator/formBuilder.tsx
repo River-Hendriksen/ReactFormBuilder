@@ -32,6 +32,7 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   fieldData,
   watchFields,
   formClass,
+  validationSchema,
   onSubmit,
 }) => {
   const {
@@ -48,7 +49,11 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
     setError,
     clearErrors,
   } = useForm(
-    ruleSetter(schema.yupSchema ? yupGeneration(schema.yupSchema) : undefined)
+    ruleSetter(
+      schema.yupSchema
+        ? yupGeneration(schema.yupSchema)
+        : validationSchema ?? undefined
+    )
   );
 
   const watchedFields = watchFields ? watch(watchFields) : watch();

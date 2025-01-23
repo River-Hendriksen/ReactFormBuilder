@@ -59,6 +59,7 @@ export interface SchemaFormBuilderProps {
   schema: CompleteFormProps;
   formClass?: string;
   fieldData?: any;
+  validationSchema?: string;
   onSubmit: (data: any) => void;
 }
 
