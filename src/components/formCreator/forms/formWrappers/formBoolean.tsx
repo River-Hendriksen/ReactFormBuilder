@@ -29,14 +29,15 @@ export const FormBoolean: React.FC<BooleanProps> = ({
 
   const classes = classNames(
     (isDisabled
-      ? "!cursor-not-allowed !bg-slate-200 md:flex items-center justify-center p-4 "
+      ? disabledClassOverrides ??
+        "!cursor-not-allowed !bg-slate-200 md:flex items-center justify-center p-4 "
       : "cursor-pointer ") +
       (inputClassAdditions ?? "ml-4 w-1/2 grid grid-cols-2 gap-3")
   );
 
   const labelClass =
     (isDisabled ? "!cursor-not-allowed" : "cursor-pointer") +
-    " flex my-auto mr-5 justify-end";
+    " flex my-auto mr-5 justify-start";
 
   const inputClass =
     (isDisabled ? "!cursor-not-allowed !bg-slate-200 " : "cursor-pointer") +

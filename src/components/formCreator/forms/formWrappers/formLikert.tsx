@@ -34,6 +34,10 @@ export const FormLikert: React.FC<LikertProps> = ({
     ? formDataContexts?.formData[registerLabel]
     : null;
 
+  const inputClass =
+    (isDisabled ? "!cursor-not-allowed !bg-slate-200 " : "cursor-pointer") +
+    " shrink-0 my-auto h-[1.2rem] w-[1.2rem] appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]";
+
   return (
     <ContextCheck fieldContexts={fieldContexts}>
       <div className={classes}>
@@ -49,8 +53,9 @@ export const FormLikert: React.FC<LikertProps> = ({
           <label
             key={idx}
             className={
-              likertLabels?.likertOptionClass ??
-              "flex cursor-pointer my-auto mr-5 justify-end"
+              (isDisabled ? "!cursor-not-allowed " : "cursor-pointer ") +
+              (likertLabels?.likertOptionClass ??
+                "flex  my-auto mr-5 justify-end")
             }
           >
             <span
@@ -66,7 +71,7 @@ export const FormLikert: React.FC<LikertProps> = ({
               disabled={isDisabled}
               checked={fieldValue != null && fieldValue == opt.value}
               // id={`${registerLabel}-${opt.value.toString()}`}
-              className="shrink-0 h-[1.2rem] w-[1.2rem] cursor-pointer appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]"
+              className={inputClass}
               value={opt.value}
               {...fieldContexts!.register(registerLabel as string, options)}
               onChange={(e) => updateStateVar(e, registerLabel)}
