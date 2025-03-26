@@ -202,6 +202,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           registerLabel={fieldIdentity}
           inputClassAdditions={inputClassName}
           value={fieldValue}
+          disabledClassOverrides={disabledClassOverrides}
           updateStateVar={updateValCheckBox}
           isDisabled={isDisabled}
         />
@@ -245,6 +246,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           userOptions={userOptions}
           inputClassAdditions={inputClassName}
           options={options}
+          disabledClassOverrides={disabledClassOverrides}
           classOverwrite={classOverwrite}
           isDisabled={isDisabled}
           updateStateVar={updateEventVal}

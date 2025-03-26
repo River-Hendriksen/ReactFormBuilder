@@ -4,7 +4,8 @@ import commonJs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
-import packageJson from "./package.json" assert { type: "json" };
+import packageJson from "./package.json" with  { type: "json" };
+import json from "@rollup/plugin-json";
 
 export default [
   {
@@ -18,6 +19,7 @@ export default [
       },
     ],
     plugins: [
+      json(), // Use this plugin to handle JSON files
       css(),
       typescript({ tsconfig: "./tsconfig.json" }),
       commonJs(),

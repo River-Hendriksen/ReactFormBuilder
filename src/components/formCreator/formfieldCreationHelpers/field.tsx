@@ -6,7 +6,11 @@ export const Field = ({ field, identifier }: FieldProp) => {
     <FieldWrapperType
       fieldIdentity={identifier}
       {...field}
-      isDisabled={field.isDisabled === true || field.isDisabled === "true"}
+      isDisabled={
+        field?.isDisabled !== undefined
+          ? field.isDisabled === true || field.isDisabled === "true"
+          : undefined
+      }
       type={field.type}
       isLabelLeft={field.isLabelLeft}
       inputClassName={field.inputClassName}
