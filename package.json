@@ -1,6 +1,6 @@
 {
   "name": "@river-hendriksen/jsonformbuilder",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "description": "Create a React Form via a json script with yup validation",
   "scripts": {
     "rollup": "rollup -c ",
