@@ -39,6 +39,7 @@ export const FormCheckBoxArray: React.FC<CheckBoxArrayProps> = ({
         const updatedFormData = [
             ...(formDataContexts?.formData[formField] || []),
         ]; // Create a copy of the array
+
         const updateCheck: CheckBoxArrayObjectValueProps = {
             ...updatedFormData[idx], // Copy the existing object at the specified index
             isChecked: isChecked, // Update the isChecked property
@@ -96,7 +97,7 @@ export const FormCheckBoxArray: React.FC<CheckBoxArrayProps> = ({
                                     type="checkbox"
                                     checked={fieldValueBool}
                                     id={registerLabel}
-                                    value={opt.value}
+                                    // value={opt.value}
                                     {...fieldContexts!.register(
                                         `${registerLabel}.${optIdx}.isChecked`,
                                         options
