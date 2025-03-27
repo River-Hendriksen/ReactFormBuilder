@@ -1,306 +1,323 @@
-import React, { useContext } from "react";
-import { FieldContexts, ContextCheck } from "../fieldContexts";
-import { FormDataContexts } from "../formDataContext";
-import { FieldErrorWrapper } from "./fieldErrorWrapper";
-import { FormBoolean } from "./formBoolean";
-import { FormCheckbox } from "./formCheckbox";
-import { FormDateTime } from "./formDateTime";
-import { FormInput, FormInputNumber } from "./formInput";
-import FormLabel from "./formLabel";
-import { FormTextArea } from "./formTextArea";
-import { FormDropDown } from "./formDropDown";
+import React, { useContext } from 'react';
+import { FieldContexts, ContextCheck } from '../fieldContexts';
+import { FormDataContexts } from '../formDataContext';
+import { FieldErrorWrapper } from './fieldErrorWrapper';
+import { FormBoolean } from './formBoolean';
+import { FormCheckbox } from './formCheckbox';
+import { FormDateTime } from './formDateTime';
+import { FormInput, FormInputNumber } from './formInput';
+import FormLabel from './formLabel';
+import { FormTextArea } from './formTextArea';
+import { FormDropDown } from './formDropDown';
 import {
-  FieldChildWrapperProps,
-  FieldWrapperProps,
-  FieldWrapperPropsType,
-} from "../../../../interfaces/formWrapperInterfaces";
-import classNames from "classnames";
+    FieldChildWrapperProps,
+    FieldWrapperProps,
+    FieldWrapperPropsType,
+} from '../../../../interfaces/formWrapperInterfaces';
+import classNames from 'classnames';
 
-import { CheckBoxArrayObjectValueProps } from "../../../../interfaces/sharedInterfaces";
-import { FormCheckBoxArray } from "./formCheckBoxArray";
-import { FormLikert } from "./formLikert";
-import { FormBadge } from "./formBadge";
-import { isEmpty } from "../../../../utils/helpers";
+import { CheckBoxArrayObjectValueProps } from '../../../../interfaces/sharedInterfaces';
+import { FormCheckBoxArray } from './formCheckBoxArray';
+import { FormLikert } from './formLikert';
+import { FormBadge } from './formBadge';
+import { isEmpty } from '../../../../utils/helpers';
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
-  htmlFor,
-  fieldIdentifier,
-  children,
-  wrapperClassName,
+    htmlFor,
+    fieldIdentifier,
+    children,
+    wrapperClassName,
 }) => {
-  const fieldContexts = useContext(FieldContexts);
+    const fieldContexts = useContext(FieldContexts);
 
-  return (
-    <ContextCheck fieldContexts={fieldContexts}>
-      {fieldContexts!.errors && fieldContexts!.errors[htmlFor] && (
-        <FieldErrorWrapper error={fieldContexts!.errors[htmlFor]} />
-      )}
-      <div className={wrapperClassName ?? "mb-10 relative"}>
-        <FormLabel htmlFor={htmlFor} labelContent={fieldIdentifier} />
-        {React.cloneElement(children, {
-          registerLabel: htmlFor,
-        })}
-      </div>
-    </ContextCheck>
-  );
+    return (
+        <ContextCheck fieldContexts={fieldContexts}>
+            {fieldContexts!.errors && fieldContexts!.errors[htmlFor] && (
+                <FieldErrorWrapper error={fieldContexts!.errors[htmlFor]} />
+            )}
+            <div className={wrapperClassName ?? 'mb-10 relative'}>
+                <FormLabel htmlFor={htmlFor} labelContent={fieldIdentifier} />
+                {React.cloneElement(children, {
+                    registerLabel: htmlFor,
+                })}
+            </div>
+        </ContextCheck>
+    );
 };
 
 export const FieldWrapperRow: React.FC<FieldWrapperProps> = ({
-  htmlFor,
-  fieldIdentifier,
-  children,
-  wrapperClassName,
-  errorClassName,
+    htmlFor,
+    fieldIdentifier,
+    children,
+    wrapperClassName,
+    errorClassName,
 }) => {
-  const fieldContexts = useContext(FieldContexts);
+    const fieldContexts = useContext(FieldContexts);
 
-  return (
-    <ContextCheck fieldContexts={fieldContexts}>
-      <div className={wrapperClassName ?? "mb-10 relative"}>
-        {fieldContexts!.errors && fieldContexts!.errors[htmlFor] && (
-          <FieldErrorWrapper
-            error={fieldContexts!.errors[htmlFor]}
-            errorClassName={errorClassName}
-          />
-        )}
-        <FormLabel htmlFor={htmlFor} labelContent={fieldIdentifier} />
-        {React.cloneElement(children, {
-          registerLabel: htmlFor,
-        })}
-      </div>
-    </ContextCheck>
-  );
+    return (
+        <ContextCheck fieldContexts={fieldContexts}>
+            <div className={wrapperClassName ?? 'mb-10 relative'}>
+                {fieldContexts!.errors && fieldContexts!.errors[htmlFor] && (
+                    <FieldErrorWrapper
+                        error={fieldContexts!.errors[htmlFor]}
+                        errorClassName={errorClassName}
+                    />
+                )}
+                <FormLabel htmlFor={htmlFor} labelContent={fieldIdentifier} />
+                {React.cloneElement(children, {
+                    registerLabel: htmlFor,
+                })}
+            </div>
+        </ContextCheck>
+    );
 };
 
 export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
-  fieldIdentity,
-  type,
-  label,
-  userOptions,
-  wrapperClassName,
-  labelClassName,
-  inputClassName,
-  disabledLabelOverrides,
-  inputClassOverrides,
-  options,
-  classOverwrite,
-  isLabelLeft,
-  maxLength,
-  errMsg,
-  isDisabled,
-  errorClassName,
-  likertLabels,
-  badgeTextAppend,
-  datepickerOptions,
-  inputOptions,
-  disabledClassOverrides,
-  placeHolder,
+    fieldIdentity,
+    type,
+    label,
+    userOptions,
+    wrapperClassName,
+    labelClassName,
+    inputClassName,
+    disabledLabelOverrides,
+    inputClassOverrides,
+    options,
+    classOverwrite,
+    isLabelLeft,
+    maxLength,
+    errMsg,
+    isDisabled,
+    errorClassName,
+    likertLabels,
+    badgeTextAppend,
+    datepickerOptions,
+    inputOptions,
+    disabledClassOverrides,
+    placeHolder,
+    errorAboveWrapper,
 }) => {
-  const fieldContexts = useContext(FieldContexts);
-  const formDataContexts = useContext(FormDataContexts);
+    const fieldContexts = useContext(FieldContexts);
+    const formDataContexts = useContext(FormDataContexts);
 
-  const updateEventVal = (e: any, formField: string) => {
-    let value = e.target.value;
-    value = isEmpty(value) ? null : value;
-    fieldContexts?.setValue(formField, value);
-    formDataContexts?.setFormData(formField, value);
-  };
-
-  const updateVal = (e: any, formField: string) => {
-    e = isEmpty(e) ? null : e;
-    fieldContexts?.setValue(formField, e);
-    formDataContexts?.setFormData(formField, e);
-  };
-
-  const updateDateTimePicker = (fieldName: string, timepoint: Date) => {
-    const timeString = timepoint?.toString();
-    formDataContexts?.setFormData(fieldName, timeString);
-    fieldContexts?.setValue(fieldName, timeString);
-  };
-
-  const updateValCheckBox = (e: any, formField: string) => {
-    fieldContexts?.setValue(formField, e);
-    formDataContexts?.setFormData(formField, e);
-  };
-
-  const fieldValue = formDataContexts?.formData?.[fieldIdentity];
-
-  const inputType = () => {
-    const components: { [key: string]: JSX.Element | null } = {
-      input: (
-        <FormInput
-          id={fieldIdentity}
-          registerLabel={fieldIdentity}
-          value={fieldValue}
-          placeHolder={placeHolder}
-          updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
-          inputClassAdditions={inputClassName}
-          inputClassOverrides={inputClassOverrides}
-          maxLength={maxLength}
-          isDisabled={isDisabled}
-          disabledClassOverrides={disabledClassOverrides}
-          inputOptions={inputOptions}
-        />
-      ),
-      numberInput: (
-        <FormInputNumber
-          id={fieldIdentity}
-          registerLabel={fieldIdentity}
-          inputClassAdditions={inputClassName}
-          inputClassOverrides={inputClassOverrides}
-          value={fieldValue}
-          updateStateVar={(e: any) =>
-            updateVal(e.target.value as number, fieldIdentity)
-          }
-          isDisabled={isDisabled}
-        />
-      ),
-      dropdown: userOptions ? (
-        <FormDropDown
-          registerLabel={fieldIdentity}
-          ddValue={fieldValue}
-          userOptions={userOptions}
-          inputClassAdditions={inputClassName}
-          options={options}
-          classOverwrite={classOverwrite}
-          isDisabled={isDisabled}
-          updateStateVar={(e: any) =>
-            updateVal(e.target.value as number, fieldIdentity)
-          }
-        />
-      ) : null,
-      text: (
-        <FormTextArea
-          id={fieldIdentity}
-          registerLabel={fieldIdentity}
-          value={fieldValue}
-          inputClassOverrides={inputClassOverrides}
-          inputClassAdditions={inputClassName}
-          updateStateVar={(e: any) => updateEventVal(e, fieldIdentity)}
-          isDisabled={isDisabled}
-        />
-      ),
-      bool: (
-        <FormBoolean
-          id={fieldIdentity}
-          registerLabel={fieldIdentity}
-          inputClassAdditions={inputClassName}
-          value={fieldValue}
-          disabledClassOverrides={disabledClassOverrides}
-          updateStateVar={updateValCheckBox}
-          isDisabled={isDisabled}
-        />
-      ),
-      checkbox: (
-        <FormCheckbox
-          id={fieldIdentity}
-          registerLabel={fieldIdentity}
-          inputClassAdditions={inputClassName}
-          value={fieldValue}
-          updateStateVar={updateValCheckBox}
-          isDisabled={isDisabled}
-        />
-      ),
-      dateTime: (
-        <FormDateTime
-          registerLabel={fieldIdentity}
-          value={fieldValue}
-          updateStateVar={updateDateTimePicker}
-          inputClassAdditions={inputClassName}
-          isDisabled={isDisabled}
-          datepickerOptions={datepickerOptions}
-        />
-      ),
-      checkboxArray: userOptions ? (
-        <FormCheckBoxArray
-          registerLabel={fieldIdentity}
-          ddValue={fieldValue}
-          userOptions={userOptions}
-          inputClassAdditions={inputClassName}
-          options={options}
-          classOverwrite={classOverwrite}
-          isDisabled={isDisabled}
-          updateStateVar={() => {}}
-        />
-      ) : null,
-      likert: userOptions ? (
-        <FormLikert
-          registerLabel={fieldIdentity}
-          ddValue={fieldValue}
-          userOptions={userOptions}
-          inputClassAdditions={inputClassName}
-          options={options}
-          disabledClassOverrides={disabledClassOverrides}
-          classOverwrite={classOverwrite}
-          isDisabled={isDisabled}
-          updateStateVar={updateEventVal}
-          likertLabels={likertLabels}
-        />
-      ) : null,
-      badge: (
-        <FormBadge
-          badgeTextAppend={badgeTextAppend}
-          value={fieldValue}
-          inputClassAdditions={inputClassName}
-        />
-      ),
+    const updateEventVal = (e: any, formField: string) => {
+        let value = e.target.value;
+        value = isEmpty(value) ? null : value;
+        fieldContexts?.setValue(formField, value);
+        formDataContexts?.setFormData(formField, value);
     };
 
-    return components[type] || null;
-  };
+    const updateVal = (e: any, formField: string) => {
+        e = isEmpty(e) ? null : e;
+        fieldContexts?.setValue(formField, e);
+        formDataContexts?.setFormData(formField, e);
+    };
 
-  const wrapperClassNames = classNames(wrapperClassName || "mb-10 relative");
-  const shouldRenderLabelLeft =
-    isLabelLeft === true || isLabelLeft === undefined;
-  return (
-    <ContextCheck fieldContexts={fieldContexts}>
-      <div className={wrapperClassNames}>
-        {fieldContexts?.errors?.[fieldIdentity] && (
-          <FieldErrorWrapper
-            error={fieldContexts.errors[fieldIdentity]}
-            errMsg={errMsg}
-            errorClassName={errorClassName}
-          />
-        )}
-        {shouldRenderLabelLeft && label && (
-          <FormLabel
-            htmlFor={fieldIdentity}
-            labelContent={label || ""}
-            labelClassName={labelClassName}
-            disabledLabelOverrides={disabledLabelOverrides}
-            isdisabled={isDisabled}
-          />
-        )}
-        {inputType()}
-        {!shouldRenderLabelLeft && label && (
-          <FormLabel
-            htmlFor={fieldIdentity}
-            labelContent={label || ""}
-            labelClassName={labelClassName}
-          />
-        )}
-      </div>
-    </ContextCheck>
-  );
+    const updateDateTimePicker = (fieldName: string, timepoint: Date) => {
+        const timeString = timepoint?.toString();
+        formDataContexts?.setFormData(fieldName, timeString);
+        fieldContexts?.setValue(fieldName, timeString);
+    };
+
+    const updateValCheckBox = (e: any, formField: string) => {
+        fieldContexts?.setValue(formField, e);
+        formDataContexts?.setFormData(formField, e);
+    };
+
+    const fieldValue = formDataContexts?.formData?.[fieldIdentity];
+
+    const inputType = () => {
+        const components: { [key: string]: JSX.Element | null } = {
+            input: (
+                <FormInput
+                    id={fieldIdentity}
+                    registerLabel={fieldIdentity}
+                    value={fieldValue}
+                    placeHolder={placeHolder}
+                    updateStateVar={(e: any) =>
+                        updateEventVal(e, fieldIdentity)
+                    }
+                    inputClassAdditions={inputClassName}
+                    inputClassOverrides={inputClassOverrides}
+                    maxLength={maxLength}
+                    isDisabled={isDisabled}
+                    disabledClassOverrides={disabledClassOverrides}
+                    inputOptions={inputOptions}
+                />
+            ),
+            numberInput: (
+                <FormInputNumber
+                    id={fieldIdentity}
+                    registerLabel={fieldIdentity}
+                    inputClassAdditions={inputClassName}
+                    inputClassOverrides={inputClassOverrides}
+                    value={fieldValue}
+                    updateStateVar={(e: any) =>
+                        updateVal(e.target.value as number, fieldIdentity)
+                    }
+                    isDisabled={isDisabled}
+                />
+            ),
+            dropdown: userOptions ? (
+                <FormDropDown
+                    registerLabel={fieldIdentity}
+                    ddValue={fieldValue}
+                    userOptions={userOptions}
+                    inputClassAdditions={inputClassName}
+                    options={options}
+                    classOverwrite={classOverwrite}
+                    isDisabled={isDisabled}
+                    updateStateVar={(e: any) =>
+                        updateVal(e.target.value as number, fieldIdentity)
+                    }
+                />
+            ) : null,
+            text: (
+                <FormTextArea
+                    id={fieldIdentity}
+                    registerLabel={fieldIdentity}
+                    value={fieldValue}
+                    inputClassOverrides={inputClassOverrides}
+                    inputClassAdditions={inputClassName}
+                    updateStateVar={(e: any) =>
+                        updateEventVal(e, fieldIdentity)
+                    }
+                    isDisabled={isDisabled}
+                />
+            ),
+            bool: (
+                <FormBoolean
+                    id={fieldIdentity}
+                    registerLabel={fieldIdentity}
+                    inputClassAdditions={inputClassName}
+                    value={fieldValue}
+                    disabledClassOverrides={disabledClassOverrides}
+                    updateStateVar={updateValCheckBox}
+                    isDisabled={isDisabled}
+                />
+            ),
+            checkbox: (
+                <FormCheckbox
+                    id={fieldIdentity}
+                    registerLabel={fieldIdentity}
+                    inputClassAdditions={inputClassName}
+                    value={fieldValue}
+                    updateStateVar={updateValCheckBox}
+                    isDisabled={isDisabled}
+                />
+            ),
+            dateTime: (
+                <FormDateTime
+                    registerLabel={fieldIdentity}
+                    value={fieldValue}
+                    updateStateVar={updateDateTimePicker}
+                    inputClassAdditions={inputClassName}
+                    isDisabled={isDisabled}
+                    datepickerOptions={datepickerOptions}
+                />
+            ),
+            checkboxArray: userOptions ? (
+                <FormCheckBoxArray
+                    registerLabel={fieldIdentity}
+                    ddValue={fieldValue}
+                    userOptions={userOptions}
+                    inputClassAdditions={inputClassName}
+                    options={options}
+                    classOverwrite={classOverwrite}
+                    isDisabled={isDisabled}
+                    updateStateVar={() => {}}
+                />
+            ) : null,
+            likert: userOptions ? (
+                <FormLikert
+                    registerLabel={fieldIdentity}
+                    ddValue={fieldValue}
+                    userOptions={userOptions}
+                    inputClassAdditions={inputClassName}
+                    options={options}
+                    disabledClassOverrides={disabledClassOverrides}
+                    classOverwrite={classOverwrite}
+                    isDisabled={isDisabled}
+                    updateStateVar={updateEventVal}
+                    likertLabels={likertLabels}
+                />
+            ) : null,
+            badge: (
+                <FormBadge
+                    badgeTextAppend={badgeTextAppend}
+                    value={fieldValue}
+                    inputClassAdditions={inputClassName}
+                />
+            ),
+        };
+
+        return components[type] || null;
+    };
+
+    const wrapperClassNames = classNames(wrapperClassName || 'mb-10 relative');
+    const shouldRenderLabelLeft =
+        isLabelLeft === true || isLabelLeft === undefined;
+    console.log('fieldContexts', fieldContexts?.errors?.[fieldIdentity]);
+    return (
+        <ContextCheck fieldContexts={fieldContexts}>
+            {fieldContexts?.errors?.[fieldIdentity] &&
+                errorAboveWrapper == true && (
+                    <FieldErrorWrapper
+                        error={fieldContexts.errors[fieldIdentity]}
+                        errMsg={errMsg}
+                        errorClassName={errorClassName}
+                    />
+                )}
+            <div className={wrapperClassNames}>
+                {fieldContexts?.errors?.[fieldIdentity] &&
+                    !errorAboveWrapper && (
+                        <FieldErrorWrapper
+                            error={fieldContexts.errors[fieldIdentity]}
+                            errMsg={errMsg}
+                            errorClassName={errorClassName}
+                        />
+                    )}
+                {shouldRenderLabelLeft && label && (
+                    <FormLabel
+                        htmlFor={fieldIdentity}
+                        labelContent={label || ''}
+                        labelClassName={labelClassName}
+                        disabledLabelOverrides={disabledLabelOverrides}
+                        isdisabled={isDisabled}
+                    />
+                )}
+                {inputType()}
+                {!shouldRenderLabelLeft && label && (
+                    <FormLabel
+                        htmlFor={fieldIdentity}
+                        labelContent={label || ''}
+                        labelClassName={labelClassName}
+                    />
+                )}
+            </div>
+        </ContextCheck>
+    );
 };
 
 export const FieldChildWrapper: React.FC<FieldChildWrapperProps> = ({
-  children,
-  error,
-  wrapperClassName,
+    children,
+    error,
+    wrapperClassName,
 }) => {
-  return (
-    <>
-      {error && <FieldErrorWrapper error={error} errorClassName={"ml-5"} />}
+    return (
+        <>
+            {error && (
+                <FieldErrorWrapper error={error} errorClassName={'ml-5'} />
+            )}
 
-      <div
-        className={
-          wrapperClassName ??
-          "ml-5 pl-5 pr-5 md:ml-10 md:pl-10 md:pr-10 border-l-2 border-slate-300"
-        }
-      >
-        {children}
-      </div>
-    </>
-  );
+            <div
+                className={
+                    wrapperClassName ??
+                    'ml-5 pl-5 pr-5 md:ml-10 md:pl-10 md:pr-10 border-l-2 border-slate-300'
+                }
+            >
+                {children}
+            </div>
+        </>
+    );
 };
