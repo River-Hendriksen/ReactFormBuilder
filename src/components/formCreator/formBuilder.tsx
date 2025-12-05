@@ -33,7 +33,9 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
   watchFields,
   formClass,
   validationSchema,
+  externalRef,
   onSubmit,
+  onError,
 }) => {
   const {
     control,
@@ -123,7 +125,11 @@ export const FormBuilder: React.FC<SchemaFormBuilderProps> = ({
       }}
     >
       <FormDataContexts.Provider value={{ formData: formData, setFormData }}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes}>
+        <form
+          onSubmit={handleSubmit(onSubmit, onError ?? (() => {}))}
+          ref={externalRef || undefined}
+          className={classes}
+        >
           {priorChildren}
           <FormFieldGenerator data={formData} schema={schemaData} />
           {children}

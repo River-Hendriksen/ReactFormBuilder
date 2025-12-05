@@ -4,6 +4,7 @@ import {
   ConditionallyShowChildren,
   FormProperties,
 } from "../../../interfaces/formGenerationInterfaces";
+import { CheckBoxArrayObjectValueProps } from "../../../interfaces/sharedInterfaces";
 import { findEnumFromString } from "../../../utils/helpers";
 import { FieldChildWrapper } from "../forms/formWrappers/fieldWrapper";
 import { RecursiveChildren } from "./recursiveChildren";
@@ -40,13 +41,44 @@ export const shouldRenderChildren = (field: FormProperties, formData: any) => {
   }
 
   return conditionallyShowChildren.every(
-    ({ formField, fieldToCompare, conditionValue, comparisonType }) => {
+    ({
+      formField,
+      formFieldType,
+      fieldToCompare,
+      conditionValue,
+      comparisonType,
+    }) => {
       ///checktype and convert to string to compare
-      const formDataValue = formData[formField]?.toString();
+      const formDataValue = formData[formField];
+
+      const formDataValueString = formData[formField]?.toString();
       const conditionValueString = conditionValue?.toString();
 
+      if (
+        formFieldType &&
+        formFieldType == "checkboxArray" &&
+        formDataValue &&
+        conditionValue &&
+        Array.isArray(formDataValue) &&
+        Array.isArray(conditionValue)
+      ) {
+        ///iterate through conditionValue as checkbox array and check if all values are present in formData
+
+        return (conditionValue as CheckBoxArrayObjectValueProps[]).every(
+          (condition) => {
+            return (
+              (formDataValue as CheckBoxArrayObjectValueProps[]).find(
+                (element) =>
+                  condition?.value === element?.value &&
+                  condition?.isChecked === element?.isChecked
+              ) != undefined
+            );
+          }
+        );
+      }
+
       return comparison(
-        formDataValue,
+        formDataValueString,
         fieldToCompare ? formData[fieldToCompare] : conditionValueString,
         comparisonType
       );

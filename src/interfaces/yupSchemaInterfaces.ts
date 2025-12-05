@@ -10,6 +10,8 @@ export interface yupFormBuilderProps {
 export interface yupFormProperties {
   type: string;
   validations?: validationRequirementProps[] | string[];
+  of?: yupFormProperties;
+  shape?: yupFormProp;
 }
 
 export interface validationRequirementProps {

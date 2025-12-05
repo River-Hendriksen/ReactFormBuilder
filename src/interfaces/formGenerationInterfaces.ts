@@ -1,4 +1,7 @@
-import { SelectOptions } from "./sharedInterfaces";
+import {
+  CheckBoxArrayObjectValueProps,
+  SelectOptions,
+} from "./sharedInterfaces";
 import { yupFormBuilderProps } from "./yupSchemaInterfaces";
 
 export interface FormProp {
@@ -47,7 +50,8 @@ export interface ConditionalChildren {
 export interface ConditionallyShowChildren {
   formField: string;
   fieldToCompare?: string;
-  conditionValue?: string | number | boolean;
+  formFieldType?: string;
+  conditionValue?: string | number | boolean | CheckBoxArrayObjectValueProps[];
   comparisonType?: string;
 }
 
@@ -60,7 +64,9 @@ export interface SchemaFormBuilderProps {
   formClass?: string;
   fieldData?: any;
   validationSchema?: string;
+  externalRef?: React.RefObject<HTMLFormElement>;
   onSubmit: (data: any) => void;
+  onError?: (data: any) => void;
 }
 
 export interface CompleteFormProps {

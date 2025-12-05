@@ -95,6 +95,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   inputOptions,
   disabledClassOverrides,
   placeHolder,
+  errorAboveWrapper,
 }) => {
   const fieldContexts = useContext(FieldContexts);
   const formDataContexts = useContext(FormDataContexts);
@@ -121,22 +122,6 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   const updateValCheckBox = (e: any, formField: string) => {
     fieldContexts?.setValue(formField, e);
     formDataContexts?.setFormData(formField, e);
-  };
-
-  const updateCheckboxArrayChange = (
-    e: any,
-    formField: string,
-    idx: number
-  ) => {
-    const updatedFormData = [...(formDataContexts?.formData[formField] || [])]; // Create a copy of the array
-    const updateCheck: CheckBoxArrayObjectValueProps = {
-      ...updatedFormData[idx], // Copy the existing object at the specified index
-      isChecked: e, // Update the isChecked property
-    };
-
-    updatedFormData[idx] = updateCheck; // Replace the object at the specified index with the updated object
-    formDataContexts?.setFormData(formField, updatedFormData); // Update the formData array in the context
-    fieldContexts?.setValue(formField, updatedFormData);
   };
 
   const fieldValue = formDataContexts?.formData?.[fieldIdentity];
@@ -236,7 +221,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
           options={options}
           classOverwrite={classOverwrite}
           isDisabled={isDisabled}
-          updateStateVar={updateCheckboxArrayChange}
+          updateStateVar={() => {}}
         />
       ) : null,
       likert: userOptions ? (
@@ -270,8 +255,15 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
     isLabelLeft === true || isLabelLeft === undefined;
   return (
     <ContextCheck fieldContexts={fieldContexts}>
+      {fieldContexts?.errors?.[fieldIdentity] && errorAboveWrapper == true && (
+        <FieldErrorWrapper
+          error={fieldContexts.errors[fieldIdentity]}
+          errMsg={errMsg}
+          errorClassName={errorClassName}
+        />
+      )}
       <div className={wrapperClassNames}>
-        {fieldContexts?.errors?.[fieldIdentity] && (
+        {fieldContexts?.errors?.[fieldIdentity] && !errorAboveWrapper && (
           <FieldErrorWrapper
             error={fieldContexts.errors[fieldIdentity]}
             errMsg={errMsg}
