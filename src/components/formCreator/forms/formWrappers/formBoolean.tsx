@@ -41,7 +41,7 @@ export const FormBoolean: React.FC<BooleanProps> = ({
 
   const inputClass =
     (isDisabled ? "!cursor-not-allowed !bg-slate-200 " : "cursor-pointer") +
-    " shrink-0 h-[1.2] w-[1.2]  appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]";
+    " shrink-0 h-[1.2rem] w-[1.2rem]  appearance-none rounded-full border border-slate-500 checked:bg-slate-500  shadow-[inset_0px_0px_0px_4px_rgba(255,255,255,1)]";
 
   return (
     <ContextCheck fieldContexts={fieldContexts}>
