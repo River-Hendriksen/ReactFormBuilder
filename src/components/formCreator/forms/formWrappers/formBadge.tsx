@@ -18,7 +18,7 @@ const BasicBadge = ({
     <div
       className={
         classOverwrite ??
-        "bg-sky-400/10 text-sky-600 text-sm flex w-fit px-3 cursor-default mt-1 font-light  leading-5   rounded-full py-[.1rem] items-center space-x-2  dark:highlight-white/5"
+        "bg-sky-400/10 text-sky-600 text-sm flex w-fit px-3 cursor-default mt-1 font-light  leading-5   rounded-full py-[.1] items-center space-x-2  dark:highlight-white/5"
       }
     >
       {label}
