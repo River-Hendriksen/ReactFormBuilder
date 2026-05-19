@@ -21,16 +21,24 @@ export default [
     plugins: [
       json(),
       css(),
-      resolve(),
-      commonJs(),
+      resolve({
+        extensions: [".mjs", ".js", ".json", ".node", ".ts", ".tsx"],
+      }),
       typescript({
         tsconfig: "./tsconfig.json",
+        clean: true,
+        include: ["**/*.ts", "**/*.tsx"],
+        tsconfigOverride: {
+          include: ["src/**/*"],
+          exclude: ["node_modules", "dist", "rollup.config.mjs"],
+        },
       }),
+      commonJs(),
       terser(),
     ],
   },
   {
-    input: "dist/esm/types/index.d.ts",
+    input: "dist/esm/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },
