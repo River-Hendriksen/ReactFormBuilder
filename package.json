@@ -1,6 +1,6 @@
 {
   "name": "@river-hendriksen/jsonformbuilder",
-  "version": "0.6.1",
+  "version": "0.6.3",
   "description": "Create a React Form via a json script with yup validation",
   "scripts": {
     "rollup": "rollup -c ",
@@ -51,16 +51,23 @@
   "dependencies": {
     "@hookform/resolvers": "^3.7.0",
     "classnames": "^2.3.2",
-    "react-datepicker": "^9.1.0",
     "react-hook-form": "^7.53.0",
     "yup": "^1.4.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "react-datepicker": "^9.1.0"
   },
   "type": "module",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
