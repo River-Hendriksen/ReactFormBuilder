@@ -127,7 +127,7 @@ export const FieldWrapperType: React.FC<FieldWrapperPropsType> = ({
   const fieldValue = formDataContexts?.formData?.[fieldIdentity];
 
   const inputType = () => {
-    const components: { [key: string]: JSX.Element | null } = {
+    const components: { [key: string]: React.JSX.Element | null } = {
       input: (
         <FormInput
           id={fieldIdentity}
